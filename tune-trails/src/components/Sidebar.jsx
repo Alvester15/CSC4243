@@ -1,70 +1,43 @@
-import React from "react";
-import { Box, AppBar, Tabs, Tab, Avatar, Typography, List, ListItem, ListItemAvatar, ListItemText, Card, CardMedia, CardContent, CardActions, Button } from "@mui/material";
-import { MusicNote, Share } from "@mui/icons-material";
+import * as React from 'react';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Box from '@mui/material/Box';
+import UserTab from './UserTab';
 
-const Sidebar = () => {
-  const [value, setValue] = React.useState(0); // state to control the tabs
+export default function Sidebar() {
+  const [value, setValue] = React.useState('2');
 
   const handleChange = (event, newValue) => {
-    setValue(newValue); // change the tabs
+    setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: 300, height: "100%" }}>
-      <AppBar position="static" color="primary">
-        <Tabs value={value} onChange={handleChange} variant="fullWidth" centered>
-          <Tab label="Friends" sx={{ color: value === 0 ? '#000' : '#fff' }} />
-          <Tab label="Profile" sx={{ color: value === 1 ? '#000' : '#fff' }} />
-          <Tab label="Logout" sx={{ color: value === 2 ? '#000' : '#fff' }} />
-        </Tabs>
-      </AppBar>
-      <Box sx={{ padding: 2 }}>
-        <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2, borderBottom: '1px solid #ccc' }}>
-          <Avatar sx={{ width: 64, height: 64, border: '2px solid #000' }} />
-          <Typography variant="h6" sx={{ marginLeft: 2 }}>
-            Username
-          </Typography>
+    <Box sx={{ position: 'relative', width: '18vw', typography: 'body1', height: '95vh', border: 1, borderRadius: 3 }}>
+      <TabContext value={value}> 
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleChange} variant='fullWidth'>
+            <Tab label="Friends" value="1" />
+            <Tab label="User" value="2" />
+            <Tab label="Logout" value="3" />
+            <Tab icon={<SettingsIcon />} value="4" />
+          </TabList>
         </Box>
-        <List sx={{ marginTop: 2 }}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ border: '2px solid #000' }} />
-            </ListItemAvatar>
-            <ListItemText primary="Friend reacted to your post" secondary="2 hours ago" />
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ border: '2px solid #000' }} />
-            </ListItemAvatar>
-            <ListItemText primary="Friend shared a new playlist" secondary="3 hours ago" />
-          </ListItem>
-        </List>
-        <Card sx={{ marginTop: 2, border: '2px solid #000' }}>
-          <CardMedia
-            component="img"
-            height="140"
-            alt="Album Cover"
-          />
-          <CardContent>
-            <Typography variant="h6" component="div">
-              Song Name
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Artist Name
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small" color="primary" startIcon={<MusicNote />}>
-              Play
-            </Button>
-            <Button size="small" color="primary" startIcon={<Share />}>
-              Create Post
-            </Button>
-          </CardActions>
-        </Card>
+        <TabPanel value="1">Friends</TabPanel>
+        <TabPanel value="2">
+          <UserTab />
+        </TabPanel>
+        <TabPanel value="3">Logout</TabPanel>
+      </TabContext>
+      <Box sx={{ position: 'absolute', bottom: '15vh', width: '100%', height: '5vh', display: 'flex', justifyContent: 'center', alignItems: 'center', borderTop: 1 }}>
+        {/*Button*/}
+      </Box>
+      {/*Footer*/}
+      <Box sx={{ position: 'absolute', bottom: 0, width: '100%', height: '15vh', borderTop: 1 }}>
+          {/* Add your footer content here */}
       </Box>
     </Box>
   );
-};
-
-export default Sidebar;
+}
