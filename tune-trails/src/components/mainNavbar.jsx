@@ -11,7 +11,7 @@ const MainNavbar = () => {
     setValue(newValue);
   };
   return (
-    <Box sx={{ width: "75%" }}>
+    <Box sx={{ width: "100%", margin: "0" }}>
       <TabContext value={value}>
         <Box>
           <TabList
@@ -22,38 +22,73 @@ const MainNavbar = () => {
             variant="fullWidth"
             centered
           >
-            <Tab sx={{ maxWidth: "150px" }} label="TuneTrail" value="1" />
-            <Tab sx={{ maxWidth: "150px" }} label="Discover" value="2" />
-            <Tab sx={{ maxWidth: "150px" }} label="Friends" value="3" />
-            <Tab sx={{ maxWidth: "150px" }} label="News" value="4" />
+            <Tab sx={{ width: "150px" }} label="TuneTrail" value="1" />
+            <Tab sx={{ width: "150px" }} label="Discover" value="2" />
+            <Tab sx={{ width: "150px" }} label="Friends" value="3" />
+            <Tab sx={{ width: "150px" }} label="News" value="4" />
           </TabList>
         </Box>
-        <TabPanel value="1">TuneTrail</TabPanel>
-        <TabPanel sx={{ overflowY: "auto" }} value="2">
+        <TabPanel
+          value="1"
+          sx={{
+            width: "60vw",
+            overflowY: "auto",
+            height: "90vh",
+            mt: "10px",
+            border: "2px solid black",
+            borderRadius: "8px",
+          }}
+        >
+          TuneTrail
+        </TabPanel>
+        <TabPanel
+          sx={{
+            width: "60vw",
+            overflowY: "auto",
+            height: "90vh",
+            mt: "10px",
+            border: "2px solid black",
+            borderRadius: "8px",
+          }}
+          value="2"
+        >
           Discover
         </TabPanel>
         <TabPanel
           sx={{
+            width: "60vw",
             overflowY: "auto",
-            height: "1000px",
+            height: "90vh",
             mt: "10px",
             border: "2px solid black",
             borderRadius: "8px",
           }} //handles all the Friends Post
           value="3"
         >
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
-          <Databox />
+          <Box sx={{}}>
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+            <Databox />
+          </Box>
         </TabPanel>
-        <TabPanel sx={{ overflowY: "auto" }} value="4">
+        <TabPanel
+          sx={{
+            width: "60vw",
+            overflowY: "auto",
+            height: "90vh",
+            mt: "10px",
+            border: "2px solid black",
+            borderRadius: "8px",
+          }}
+          value="4"
+        >
           News
         </TabPanel>
       </TabContext>

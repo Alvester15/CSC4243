@@ -5,12 +5,7 @@ import { Box, Container } from "@mui/material";
 
 const FriendPage = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <Box>
       <MainNavbar />
     </Box>
   );
