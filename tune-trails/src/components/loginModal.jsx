@@ -1,14 +1,14 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Button } from '@mui/material';
 import queryString from 'query-string';
 
 const LoginModal = ({ open, onClose }) => {
   const authenticate = () => {
     const queries = {
         response_type: 'code',
-        client_id: '',
+        client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
         scope: 'user-read-email',
-        redirect_uri: 'http://localhost:5173',
+        redirect_uri: 'http://localhost:5173/callback',
     };
     location.assign(
         `https://accounts.spotify.com/authorize?${queryString.stringify(queries)}`
@@ -16,9 +16,11 @@ const LoginModal = ({ open, onClose }) => {
   };
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Login Required</DialogTitle>
+      <DialogTitle>Welcome to TuneTrail</DialogTitle>
       <DialogContent>
-        {/* Add your login form or button to initiate the login process */}
+        <Button onClick={authenticate}>
+          Login with Spotify
+        </Button>
       </DialogContent>
     </Dialog>
   );

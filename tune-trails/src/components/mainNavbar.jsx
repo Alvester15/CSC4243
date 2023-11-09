@@ -1,7 +1,8 @@
 import React from "react";
 import { TabList, TabContext } from "@mui/lab";
-import { Box, Tab } from "@mui/material";
+import { Tab } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
+import { Box } from "@mui/material";
 
 const MainNavbar = () => {
   const { pathname } = useLocation();

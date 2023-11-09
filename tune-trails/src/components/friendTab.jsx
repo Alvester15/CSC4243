@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FriendSearch from './friendSearch';
-import { Button, Box } from '@mui/material';
+import { Button } from '@mui/material';
+import { Box } from "@mui/material";
 
 function FriendsTab() {
   

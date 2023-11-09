@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Avatar, Typography, Button, Box } from '@mui/material';
+import { Avatar, Typography, Button } from '@mui/material';
 import Notification from './notification';
+import { Box } from "@mui/material";
 
 const UserTab = () => {
 

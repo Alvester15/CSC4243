@@ -1,7 +1,6 @@
 import album from "../assets/pexels-dids-1616470.jpg";
 import React from "react";
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/material";
 
 const Databox = () => {
   return (

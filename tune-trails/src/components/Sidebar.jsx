@@ -6,7 +6,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserTab from './userTab';
 import FriendsTab from './friendTab';
-import Box from '@mui/material/Box';
+import { Box } from "@mui/material";
 
 export default function Sidebar() {
   const [value, setValue] = React.useState('2');
@@ -22,8 +22,7 @@ export default function Sidebar() {
           <TabList onChange={handleChange} variant='fullWidth' sx={{ height: "5vh"}}>
             <Tab label="Friends" value="1" />
             <Tab label="User" value="2" />
-            <Tab label="Logout" value="3" />
-            <Tab icon={<SettingsIcon />} value="4" />
+            <Tab icon={<SettingsIcon />} value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -32,7 +31,7 @@ export default function Sidebar() {
         <TabPanel value="2">
           <UserTab />
         </TabPanel>
-        <TabPanel value="3">Logout</TabPanel>
+        <TabPanel value="3">Settings</TabPanel>
       </TabContext>
     </Box>
   );
