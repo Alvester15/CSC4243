@@ -1,97 +1,41 @@
 import React from "react";
-import { useState } from "react";
-import { Box, Tab, Tabs } from "@mui/material";
-import Databox from "./databox";
-import { TabList, TabContext, TabPanel } from "@mui/lab";
+import { TabList, TabContext } from "@mui/lab";
+import { Box, Tab } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 
 const MainNavbar = () => {
-  const [value, setValue] = useState("1");
+  const { pathname } = useLocation();
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   return (
-    <Box sx={{ width: "100%", margin: "0" }}>
-      <TabContext value={value}>
+    <Box
+      sx={{
+        position: "absolute",
+        display: "flex",
+        alignItems: "center",
+        top: 2,
+        left: "20vw",
+        width: "60vw",
+        flexDirection: "row",
+      }}
+    >
+      <Box sx={{ width: "100%", margin: "0" }}>
+      <TabContext value={pathname}>
         <Box>
           <TabList
-            value={value}
-            onChange={handleChange}
+            value={pathname}
             indicatorColor="primary"
             textColor="primary"
             variant="fullWidth"
             centered
           >
-            <Tab sx={{ width: "150px" }} label="TuneTrail" value="1" />
-            <Tab sx={{ width: "150px" }} label="Discover" value="2" />
-            <Tab sx={{ width: "150px" }} label="Friends" value="3" />
-            <Tab sx={{ width: "150px" }} label="News" value="4" />
+            <Tab sx={{ width: "15vw" }} label="TuneTrail" component={Link} to="/profile" value="/profile" />
+            <Tab sx={{ width: "15vw" }} label="Discover" component={Link} to="/discover" value="/discover" />
+            <Tab sx={{ width: "15vw" }} label="Friends" component={Link} to="/friends" value="/friends" />
+            <Tab sx={{ width: "15vw" }} label="News" component={Link} to="/news" value="/news" />
           </TabList>
         </Box>
-        <TabPanel
-          value="1"
-          sx={{
-            width: "60vw",
-            overflowY: "auto",
-            height: "90vh",
-            mt: "10px",
-            border: "2px solid black",
-            borderRadius: "8px",
-          }}
-        >
-          TuneTrail
-        </TabPanel>
-        <TabPanel
-          sx={{
-            width: "60vw",
-            overflowY: "auto",
-            height: "90vh",
-            mt: "10px",
-            border: "2px solid black",
-            borderRadius: "8px",
-          }}
-          value="2"
-        >
-          Discover
-        </TabPanel>
-        <TabPanel
-          sx={{
-            width: "60vw",
-            overflowY: "auto",
-            height: "90vh",
-            mt: "10px",
-            border: "2px solid black",
-            borderRadius: "8px",
-          }} //handles all the Friends Post
-          value="3"
-        >
-          <Box sx={{}}>
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-            <Databox />
-          </Box>
-        </TabPanel>
-        <TabPanel
-          sx={{
-            width: "60vw",
-            overflowY: "auto",
-            height: "90vh",
-            mt: "10px",
-            border: "2px solid black",
-            borderRadius: "8px",
-          }}
-          value="4"
-        >
-          News
-        </TabPanel>
       </TabContext>
+      </Box>
     </Box>
   );
 };

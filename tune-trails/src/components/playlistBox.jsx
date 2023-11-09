@@ -1,7 +1,6 @@
 import * as React from "react";
-
-import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 
 export default function PlaylistBox() {
   return (
@@ -10,7 +9,7 @@ export default function PlaylistBox() {
         position: "relative",
         width: "18vw",
         typography: "body1",
-        height: "95vh",
+        height: "94vh",
         border: 1,
         borderRadius: 3,
       }}

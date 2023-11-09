@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { InputBase, Box, Autocomplete } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { InputBase, Box, Autocomplete } from '@mui/material';
 
 function FriendSearch() { 
     return (

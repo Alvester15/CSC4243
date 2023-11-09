@@ -4,9 +4,9 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Box from '@mui/material/Box';
 import UserTab from './userTab';
 import FriendsTab from './friendTab';
+import Box from '@mui/material/Box';
 
 export default function Sidebar() {
   const [value, setValue] = React.useState('2');
@@ -16,10 +16,10 @@ export default function Sidebar() {
   };
 
   return (
-    <Box sx={{ position: 'relative', width: '18vw', typography: 'body1', minHeight: '95vh', border: 1, borderRadius: 3 }}>
+    <Box sx={{ position: 'relative', width: '18vw', typography: 'body1', minHeight: '94vh', border: 1, borderRadius: 3 }}>
       <TabContext value={value}> 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} variant='fullWidth'>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', height: "5vh" }}>
+          <TabList onChange={handleChange} variant='fullWidth' sx={{ height: "5vh"}}>
             <Tab label="Friends" value="1" />
             <Tab label="User" value="2" />
             <Tab label="Logout" value="3" />

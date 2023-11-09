@@ -1,22 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import Sidebar from './components/sidebar.jsx'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-import './index.css'
+import { StrictMode } from "react";
+import * as ReactDOMClient from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
-]);
+const rootElement = document.getElementById("root");
+const root = ReactDOMClient.createRoot(rootElement);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+root.render(
+  <StrictMode>
+    <Router>
+      <App />
+    </Router>
+  </StrictMode>
+);
