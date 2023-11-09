@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import "./App.css";
 import PlaylistBox from "./components/playlistBox";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebar";
 
 import FriendPage from "./pages/friends";
 

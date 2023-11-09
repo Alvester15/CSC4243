@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import Sidebar from './components/Sidebar.jsx'
+import Sidebar from './components/sidebar.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,7 +11,7 @@ import './index.css'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Sidebar />,
+    element: <App />,
   },
 ]);
 
