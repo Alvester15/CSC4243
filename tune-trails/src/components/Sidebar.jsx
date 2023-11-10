@@ -6,13 +6,20 @@ import TabPanel from '@mui/lab/TabPanel';
 import SettingsIcon from '@mui/icons-material/Settings';
 import UserTab from './userTab';
 import FriendsTab from './friendTab';
+import Button from '@mui/material/Button';
+import { useAuth } from '../context/authContext';
 import { Box } from "@mui/material";
 
 export default function Sidebar() {
   const [value, setValue] = React.useState('2');
+  const { reset } = useAuth();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleLogout = () => {
+    reset();
   };
 
   return (
@@ -31,7 +38,11 @@ export default function Sidebar() {
         <TabPanel value="2">
           <UserTab />
         </TabPanel>
-        <TabPanel value="3">Settings</TabPanel>
+        <TabPanel value="3">
+          <Button onClick={handleLogout}>
+            Logout
+          </Button>
+        </TabPanel>
       </TabContext>
     </Box>
   );

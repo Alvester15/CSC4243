@@ -8,10 +8,16 @@ import Discover from "./pages/discover";
 import News from "./pages/news";
 import MainNavbar from "./components/mainNavbar";
 import Callback from "./pages/callback";
+import { useAuth } from "./context/authContext";
+import LoginModal from "./components/loginModal";
+import { Typography }  from "@mui/material";
 import { Box } from "@mui/material";
 
 
 function App() {
+  const { authorization, refreshToken, user } = useAuth();
+
+  const showLoginModal = !authorization && !refreshToken;
 
   return (
     <Box sx={{        
@@ -22,6 +28,7 @@ function App() {
     flexDirection: "row", 
     overflow: "hidden",
     }}>
+      {showLoginModal && <LoginModal open={true} onClose={() => { /* Handle close */ }} />}
       <Box sx={{ position: "absolute", left: 20, top: "5vh" }}>
         <PlaylistBox />
       </Box>

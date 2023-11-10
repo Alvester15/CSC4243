@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -7,6 +8,14 @@ const AuthProvider = ({ children }) => {
   const [refreshToken, setRefreshToken] = useState(null);
   const [user, setUser] = useState(null);
   const authB64 = btoa(`${import.meta.env.VITE_SPOTIFY_CLIENT_ID}:${import.meta.env.VITE_SPOTIFY_CLIENT_SECRET}`);
+  const redirect_uri = "http://localhost:5173/callback";
+
+  const reset = () => {
+    setAuthorization(null);
+    setRefreshToken(null);
+    setUser(null);
+    // ... (reset other state variables if needed)
+  };
 
   // checking our localStorage if we have authorization, refresh_token, and user
   useEffect(() => {
@@ -55,7 +64,7 @@ const AuthProvider = ({ children }) => {
   
     return refresh_token;
   }
-  
+
   useEffect(() => {
     const start = async () => {
       const refresh_token = await getRefreshToken({
@@ -112,7 +121,9 @@ const AuthProvider = ({ children }) => {
 
       const res = await axios.get("https://api.spotify.com/v1/me", config);
 
-      window.localStorage.setItem("user", res.data);
+      console.log("User Object:", res.data); // Log the entire user object
+
+      window.localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
     };
 
@@ -126,6 +137,7 @@ const AuthProvider = ({ children }) => {
     setAuthorization,
     setRefreshToken,
     setUser,
+    reset,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -2,6 +2,7 @@ import {
     useSearchParams,
     useNavigate,
 } from "react-router-dom";
+import { useEffect } from "react";
   
 const Callback = () => {
     const [searchParams] = useSearchParams();
@@ -18,4 +19,5 @@ const Callback = () => {
       </main>
     );
   };
-  
+
+export default Callback;
