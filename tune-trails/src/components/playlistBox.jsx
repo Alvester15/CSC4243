@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Typography,
-  Box,
-  Button,
-  TextField,
-  IconButton,
-  Input,
-} from "@mui/material";
+import { Typography, Box, Button, IconButton, Input } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import PlaylistAddSharpIcon from "@mui/icons-material/PlaylistAddSharp";
@@ -14,12 +7,15 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import InternalPlaylistEditor from "./internalPlaylistEditor";
 
 export default function PlaylistBox() {
   const [isClicked, setClick] = useState(false);
   const [buttons, setButtons] = useState([]);
   const [playListNameEdit, setPlayListNameEdit] = useState(false);
   const [newPlaylistName, setPlaylistName] = useState("New Playlist");
+  const [playlistEditor, setPlaylistEditor] = useState(false);
+  const [selectButton, setSelectButton] = useState([]);
 
   const handleClick = () => {
     if (isClicked) {
@@ -28,6 +24,7 @@ export default function PlaylistBox() {
       setClick(true);
     }
   };
+
   const editStatus = () => {
     if (playListNameEdit) {
       setPlayListNameEdit(false);
@@ -36,13 +33,31 @@ export default function PlaylistBox() {
       setPlayListNameEdit(true);
     }
   };
-  const handleNameChange = (event) => {
-    setPlaylistName(event.target.value);
+
+  //Current just a test button in the name
+  const testButton = (event) => {
+    event.stopPropagation();
+    alert("button test");
+  };
+
+  // want this function to open new window for adding to playlist
+  const internalPlaylist = (event, index, buttonName) => {
+    if (playlistEditor == false) {
+      event.stopPropagation();
+      setSelectButton(buttonName);
+      setPlayListNameEdit(false);
+      setPlaylistEditor(true);
+    } else {
+      setPlayListNameEdit(false);
+      setPlaylistName("New PlayList");
+      setPlaylistEditor(false);
+    }
   };
 
   const playlistNamerRead = () => {
     <Input defaultValue="New Playlist" inputProps={{ readOnly: true }} />;
   };
+
   const playlistNamerWrite = () => {
     return (
       <Box
@@ -72,7 +87,7 @@ export default function PlaylistBox() {
     newButtons.push(
       <Button
         key={newButtons.length}
-        sx={{ textAlign: "center", width: "100%" }}
+        sx={{ textAlign: "center", width: "100%", color: "black" }}
       >
         {newPlaylistName}
       </Button>
@@ -110,26 +125,54 @@ export default function PlaylistBox() {
           textAlign: "center",
         }}
       >
-        <Button
-          startIcon={<PlaylistAddSharpIcon />}
-          onClick={editStatus}
-          sx={{ width: "75%", borderBottom: "1px solid black" }}
-        >
-          New Playlist
-        </Button>
-        {playListNameEdit ? playlistNamerWrite() : playlistNamerRead()}
-        {/* add buttons dynamically */}
-        {buttons.map((button, index) => (
-          <Button
-            key={index}
-            sx={{
-              width: "75%",
-              borderBottom: "1px solid black",
-            }}
-          >
-            {button}
-          </Button>
-        ))}
+        {playlistEditor ? (
+          <>
+            <InternalPlaylistEditor buttons={selectButton} />
+            <Box sx={{ mt: "50px" }}>
+              <Button
+                outlined
+                onClick={internalPlaylist}
+                sx={{
+                  border: 1,
+                  textAlign: "center",
+                  margin: "auto",
+                  padding: "2vh",
+                }}
+              >
+                <Typography variant="h5">Save and Close</Typography>
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Button
+              startIcon={<PlaylistAddSharpIcon />}
+              onClick={editStatus}
+              sx={{ width: "75%", borderBottom: "1px solid black" }}
+            >
+              New Playlist
+            </Button>
+            {playListNameEdit ? playlistNamerWrite() : playlistNamerRead()}
+            {/* add buttons dynamically */}
+            {buttons.map((button, index) => (
+              <Button
+                key={index}
+                sx={{
+                  width: "75%",
+                  borderBottom: "1px solid black",
+                }}
+                onClick={(event) =>
+                  internalPlaylist(event, index, button.props.children)
+                }
+              >
+                {button}
+                <IconButton onClick={testButton}>
+                  <MoreVertIcon />
+                </IconButton>
+              </Button>
+            ))}
+          </>
+        )}
       </Box>
     </Box>
   );

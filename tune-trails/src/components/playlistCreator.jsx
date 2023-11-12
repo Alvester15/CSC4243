@@ -43,16 +43,6 @@ function playlistCreator() {
           <MenuItem>Rename</MenuItem>
         </MenuList>
       </Paper>
-      <IconButton
-        ref={anchorRef}
-        id="playlist-options"
-        aria-controls={open ? "composition-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <MoreVertIcon />
-      </IconButton>
     </Stack>
   );
 }
