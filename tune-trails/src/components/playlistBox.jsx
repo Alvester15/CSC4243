@@ -42,11 +42,16 @@ export default function PlaylistBox() {
 
   // want this function to open new window for adding to playlist
   const internalPlaylist = (event, index, buttonName) => {
-    event.stopPropagation();
-    alert(`Button at index ${index} clicked. Name: ${buttonName}`);
-    setSelectButton(buttonName);
-    setPlayListNameEdit(false);
-    setPlaylistEditor(true);
+    if (playlistEditor == false) {
+      event.stopPropagation();
+      setSelectButton(buttonName);
+      setPlayListNameEdit(false);
+      setPlaylistEditor(true);
+    } else {
+      setPlayListNameEdit(false);
+      setPlaylistName("New PlayList");
+      setPlaylistEditor(false);
+    }
   };
 
   const playlistNamerRead = () => {
@@ -120,7 +125,23 @@ export default function PlaylistBox() {
         }}
       >
         {playlistEditor ? (
-          <InternalPlaylistEditor buttons={selectButton} />
+          <>
+            <InternalPlaylistEditor buttons={selectButton} />
+            <Box sx={{ mt: "50px" }}>
+              <Button
+                outlined
+                onClick={internalPlaylist}
+                sx={{
+                  border: 1,
+                  textAlign: "center",
+                  margin: "auto",
+                  padding: "2vh",
+                }}
+              >
+                <Typography variant="h5">Save and Close</Typography>
+              </Button>
+            </Box>
+          </>
         ) : (
           <>
             <Button
