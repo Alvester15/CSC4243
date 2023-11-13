@@ -4,10 +4,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import PlaylistAddSharpIcon from "@mui/icons-material/PlaylistAddSharp";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import InternalPlaylistEditor from "./internalPlaylistEditor";
+import { usePlaylistsData } from "../data/playlistsData";
+import {useModifyPlaylist } from "../data/modifyPlaylists";
 
 export default function PlaylistBox() {
   const [isClicked, setClick] = useState(false);
@@ -16,6 +18,8 @@ export default function PlaylistBox() {
   const [newPlaylistName, setPlaylistName] = useState("New Playlist");
   const [playlistEditor, setPlaylistEditor] = useState(false);
   const [selectButton, setSelectButton] = useState([]);
+  const { playlists } = usePlaylistsData();
+  const createPlaylist = useModifyPlaylist();
 
   const handleClick = () => {
     if (isClicked) {
@@ -24,6 +28,7 @@ export default function PlaylistBox() {
       setClick(true);
     }
   };
+
 
   const editStatus = () => {
     if (playListNameEdit) {
@@ -81,18 +86,29 @@ export default function PlaylistBox() {
     );
   };
 
-  const addNewPlaylist = () => {
-    const newButtons = [...buttons];
-    newButtons.push(
-      <Button
-        key={newButtons.length}
-        sx={{ textAlign: "center", width: "100%", color: "black" }}
-      >
-        {newPlaylistName}
-      </Button>
-    );
-    setButtons(newButtons);
-    setPlayListNameEdit(false);
+  const addNewPlaylist = async () => {
+    try {
+      // Call the createPlaylist function with the newPlaylistName
+      const newPlaylist = await createPlaylist(newPlaylistName);
+  
+      // Update the state with the newly created playlist
+      setButtons((prevButtons) => [
+        ...prevButtons,
+        <Button
+          key={newPlaylist.id} // Use a unique key for each playlist
+          sx={{ textAlign: "center", width: "100%", color: "black" }}
+          onClick={(event) => internalPlaylist(event, newPlaylist.id, newPlaylist.name)}
+        >
+          {newPlaylist.name}
+        </Button>
+      ]);
+  
+      setPlayListNameEdit(false);
+
+    } catch (error) {
+      console.error('Error creating a playlist:', error);
+      // Handle the error as needed
+    }
   };
 
   return (
@@ -153,18 +169,22 @@ export default function PlaylistBox() {
             </Button>
             {playListNameEdit ? playlistNamerWrite() : playlistNamerRead()}
             {/* add buttons dynamically */}
-            {buttons.map((button, index) => (
+            {playlists.map((playlist) => (
               <Button
-                key={index}
+                key={playlist.id}
                 sx={{
-                  width: "75%",
+                  width: "100%",
                   borderBottom: "1px solid black",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                 }}
-                onClick={(event) =>
-                  internalPlaylist(event, index, button.props.children)
-                }
+                onClick={(event) => internalPlaylist(event, playlist.id, playlist.name)}
               >
-                {button}
+                {playlist.images && playlist.images.length > 0 && (
+                <img src={playlist.images[0].url} alt={playlist.name} style={{ width: "50px", height: "50px", marginRight: "10px" }} />
+                )}
+                {playlist.name}
                 <IconButton onClick={testButton}>
                   <MoreVertIcon />
                 </IconButton>

@@ -6,6 +6,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [authorization, setAuthorization] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
   const [user, setUser] = useState(null);
   const authB64 = btoa(`${import.meta.env.VITE_SPOTIFY_CLIENT_ID}:${import.meta.env.VITE_SPOTIFY_CLIENT_SECRET}`);
   const redirect_uri = "http://localhost:5173/callback";
@@ -111,7 +112,6 @@ const AuthProvider = ({ children }) => {
         refreshToken,
         authB64,
       });
-
       const config = {
         headers: {
           Authorization: `Bearer ${access_token}`,
@@ -125,6 +125,7 @@ const AuthProvider = ({ children }) => {
 
       window.localStorage.setItem("user", JSON.stringify(res.data));
       setUser(res.data);
+      setAccessToken(access_token);
     };
 
     authorization && refreshToken && getUser();
@@ -134,9 +135,11 @@ const AuthProvider = ({ children }) => {
     authorization,
     refreshToken,
     user,
+    accessToken,
     setAuthorization,
     setRefreshToken,
     setUser,
+    setAccessToken,
     reset,
   };
 
