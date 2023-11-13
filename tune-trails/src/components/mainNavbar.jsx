@@ -20,22 +20,46 @@ const MainNavbar = () => {
       }}
     >
       <Box sx={{ width: "100%", margin: "0" }}>
-      <TabContext value={pathname}>
-        <Box>
-          <TabList
-            value={pathname}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-            centered
-          >
-            <Tab sx={{ width: "15vw" }} label="TuneTrail" component={Link} to="/profile" value="/profile" />
-            <Tab sx={{ width: "15vw" }} label="Discover" component={Link} to="/discover" value="/discover" />
-            <Tab sx={{ width: "15vw" }} label="Friends" component={Link} to="/friends" value="/friends" />
-            <Tab sx={{ width: "15vw" }} label="News" component={Link} to="/news" value="/news" />
-          </TabList>
-        </Box>
-      </TabContext>
+        <TabContext value={pathname}>
+          <Box>
+            <TabList
+              value={pathname}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              centered
+            >
+              <Tab
+                sx={{ width: "15vw" }}
+                label="TuneTrail"
+                component={Link}
+                to="/profile"
+                value="/profile"
+              />
+              <Tab
+                sx={{ width: "15vw" }}
+                label="Discover"
+                component={Link}
+                to="/discover"
+                value="/discover"
+              />
+              <Tab
+                sx={{ width: "15vw" }}
+                label="Friends"
+                component={Link}
+                to="/friends"
+                value="/friends"
+              />
+              <Tab
+                sx={{ width: "15vw" }}
+                label="News"
+                component={Link}
+                to="/news"
+                value="/news"
+              />
+            </TabList>
+          </Box>
+        </TabContext>
       </Box>
     </Box>
   );

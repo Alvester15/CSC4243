@@ -10,9 +10,8 @@ import MainNavbar from "./components/mainNavbar";
 import Callback from "./pages/callback";
 import { useAuth } from "./context/authContext";
 import LoginModal from "./components/loginModal";
-import { Typography }  from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
-
 
 function App() {
   const { authorization, refreshToken, user } = useAuth();
@@ -37,14 +36,14 @@ function App() {
         <Sidebar />
       </Box>
 
-    <Routes>
-      <Route index element={<Navigate to="/profile" />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/discover" element={<Discover />} />
-      <Route path="/friends" element={<FriendPage />} />
-      <Route path="/news" element={<News />} />
-      <Route path="/callback" element={<Callback />} />
-    </Routes>
+      <Routes>
+        <Route index element={<Navigate to="/profile" />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/friends" element={<FriendPage />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/callback" element={<Callback />} />
+      </Routes>
     </Box>
   );
 }
