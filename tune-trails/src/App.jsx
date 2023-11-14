@@ -15,7 +15,6 @@ import { Box } from "@mui/material";
 
 function App() {
   const { authorization, refreshToken, user } = useAuth();
-
   const showLoginModal = !authorization && !refreshToken;
 
   return (
@@ -37,7 +36,7 @@ function App() {
       </Box>
 
       <Routes>
-        <Route index element={<Navigate to="/profile" />} />
+        <Route index element={<Navigate to="/discover" />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/friends" element={<FriendPage />} />

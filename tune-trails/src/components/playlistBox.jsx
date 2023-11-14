@@ -9,7 +9,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import InternalPlaylistEditor from "./internalPlaylistEditor";
 import { usePlaylistsData } from "../data/playlistsData";
-import {useModifyPlaylist } from "../data/modifyPlaylists";
+import { useModifyPlaylist } from "../data/modifyPlaylists";
+import PlaylistMoreMenu from "./playlistMoreMenu";
 
 export default function PlaylistBox() {
   const [isClicked, setClick] = useState(false);
@@ -20,6 +21,8 @@ export default function PlaylistBox() {
   const [selectButton, setSelectButton] = useState([]);
   const { playlists } = usePlaylistsData();
   const createPlaylist = useModifyPlaylist();
+  const [moreMenuAnchor, setMoreMenuAnchor] = useState(null);
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
   const handleClick = () => {
     if (isClicked) {
@@ -39,19 +42,15 @@ export default function PlaylistBox() {
     }
   };
 
-  //Current just a test button in the name
-  const testButton = (event) => {
-    event.stopPropagation();
-    alert("button test");
-  };
-
   // want this function to open new window for adding to playlist
   const internalPlaylist = (event, index, buttonName) => {
-    if (playlistEditor == false) {
+    if (playlistEditor === false) {
       event.stopPropagation();
       setSelectButton(buttonName);
       setPlayListNameEdit(false);
       setPlaylistEditor(true);
+      setSelectedPlaylist(playlists.find((playlist) => playlist.id === index));
+
     } else {
       setPlayListNameEdit(false);
       setPlaylistName("New PlayList");
@@ -111,6 +110,14 @@ export default function PlaylistBox() {
     }
   };
 
+  const openMoreMenu = (event) => {
+    setMoreMenuAnchor(event.currentTarget);
+  };
+  
+  const closeMoreMenu = () => {
+    setMoreMenuAnchor(null);
+  };
+
   return (
     <Box
       sx={{
@@ -142,10 +149,13 @@ export default function PlaylistBox() {
       >
         {playlistEditor ? (
           <>
-            <InternalPlaylistEditor buttons={selectButton} />
+            <InternalPlaylistEditor 
+              playlistName={selectButton} 
+              tracks={selectedPlaylist ? selectedPlaylist.tracks : []}
+            />
             <Box sx={{ mt: "50px" }}>
               <Button
-                outlined
+                outlined="true"
                 onClick={internalPlaylist}
                 sx={{
                   border: 1,
@@ -179,15 +189,24 @@ export default function PlaylistBox() {
                   justifyContent: "space-between",
                   alignItems: "center",
                 }}
-                onClick={(event) => internalPlaylist(event, playlist.id, playlist.name)}
+                onDoubleClick={(event) => internalPlaylist(event, playlist.id, playlist.name)}
               >
                 {playlist.images && playlist.images.length > 0 && (
                 <img src={playlist.images[0].url} alt={playlist.name} style={{ width: "50px", height: "50px", marginRight: "10px" }} />
                 )}
                 {playlist.name}
-                <IconButton onClick={testButton}>
+                <IconButton onClick={(event) => {
+                  event.stopPropagation(); // Prevent propagation
+                  openMoreMenu(event);
+                }}>
                   <MoreVertIcon />
                 </IconButton>
+
+
+                <PlaylistMoreMenu
+                  anchorEl={moreMenuAnchor}
+                  onClose={closeMoreMenu}
+                />
               </Button>
             ))}
           </>
