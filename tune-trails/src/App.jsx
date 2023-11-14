@@ -44,7 +44,7 @@ function App() {
         </Box>
 
         <Routes>
-          <Route index element={<Navigate to="/discover" />} />
+          <Route index element={<Navigate to="/profile" />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/friends" element={<FriendPage />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, Stack, Avatar, Tab, Tabs } from "@mui/material"; // Import Grid from MUI
+import { Box, Button, Grid, Stack, Avatar, Typography } from "@mui/material"; // Import Grid from MUI
 import { useAuth } from "../context/authContext";
 import TuneTrail from "../data/tuneTrail";
 
@@ -46,7 +46,7 @@ const Profile = (props) => {
       }}
     >
       <Box sx={{ position: "relative", left: "4vw", margin: "16px" }}>
-        <h2>{`${user?.display_name}'s TuneTrail`}</h2>
+        <Typography variant="h3" color={"grey"}>{`${user?.display_name}`}</Typography>
       </Box>
 
       <Box
@@ -69,7 +69,9 @@ const Profile = (props) => {
               width: "18vw",
             }}
           >
-            <h3>Top Artists</h3>
+              <Typography variant="h5" mt={2} mb={2}>
+                Top Artists
+              </Typography>
             <Stack spacing={2}>
               {topArtists.map((artist) => (
                 <Stack direction="horizontal" alignItems="center" key={artist.id}
@@ -105,7 +107,9 @@ const Profile = (props) => {
               width: "18vw",
             }}
           >
-            <h3>Top Songs</h3>
+              <Typography variant="h5" mt={2} mb={2}>
+                Top Songs
+              </Typography>
             <Stack spacing={2}>
               {topTracks.map((track) => (
                 <Stack direction="horizontal" alignItems="center" key={track.id}
@@ -140,10 +144,12 @@ const Profile = (props) => {
               height: "50vh",
             }}
           >
-            <div>
-              <h3>Top Genre</h3>
-              <p>Rap</p>
-            </div>
+              <Typography variant="h5" mt={2} mb={2}>
+                Top Genre
+              </Typography>
+              <Typography variant="body1">
+                Rap
+              </Typography>
           </Box>
         </Grid>
       </Box>
@@ -192,8 +198,16 @@ const Profile = (props) => {
 
       {/* Bottom Box for User's Bio */}
       <Box sx={{ paddingLeft: "4vw", marginTop: "16px", borderTop: "2px solid #bebebe" }}>
-        <h2>User's Bio</h2>
-        {/* Add user's bio content here */}
+      <Typography variant="h4" marginTop={2} color={"grey"}>
+        Bio
+      </Typography>
+      <Typography variant="body1" marginTop={2} color={"grey"}>
+        <Typography>About me: I like music</Typography>
+        <Typography>Member since: 12/15/20</Typography>
+        <Typography>Playlists contributions: 10</Typography>
+        <Typography>Unique songs listened to: 3482 </Typography>
+        <Typography>Unique genres listened to: 163</Typography>
+      </Typography>
       </Box>
     </Box>
   );

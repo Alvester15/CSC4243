@@ -1,5 +1,4 @@
-import album from "../assets/pexels-dids-1616470.jpg";
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -10,11 +9,26 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 
+const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, songId }) => {
+  const [fireButtonState, setFireButtonState] = useState("outlined");
+  const [thumbButtonState, setThumbButtonState] = useState("outlined");
 
+  function handleReaction(id) {
+    if (id === "fire") {
+      if (fireButtonState === "outlined") {
+        setFireButtonState("contained");
+      } else {
+        setFireButtonState("outlined");
+      }
+    } else if (id === "thumb") {
+      if (thumbButtonState === "outlined") {
+        setThumbButtonState("contained");
+      } else {
+        setThumbButtonState("outlined");
+      }
+    }
+  }
 
-const Databox = () => {
-  const [fireButtonState, setFireButtonState] = React.useState("outlined")
-  const [thumbButtonState, setThumbButtonState] = React.useState("outlined")
   return (
     <Container>
       <Box sx={{ my: "50px", display: "flex", justifyContent: "center" }}>
@@ -38,7 +52,7 @@ const Databox = () => {
                 height: "250px",
                 border: "1px solid #bebebe",
               }}
-              image={album}
+              image={imageUrl}
               alt="placeholderIMG"
             ></CardMedia>
             <Box
@@ -48,11 +62,33 @@ const Databox = () => {
                 height: "66px",
               }}
             >
-              <Button className="reaction" id="thumb" onClick={()=> handleReaction("thumb")} variant={thumbButtonState} color="primary">
+              <Button
+                className="reaction"
+                id="thumb"
+                onClick={() => handleReaction("thumb")}
+                variant={thumbButtonState}
+                color="primary"
+              >
                 👍
               </Button>
-              <Button className="reaction" id="fire" onClick={() => handleReaction("fire")} variant={fireButtonState} color="primary" sx={{ ml: "10px" }}>
+              <Button
+                className="reaction"
+                id="fire"
+                onClick={() => handleReaction("fire")}
+                variant={fireButtonState}
+                color="primary"
+                sx={{ ml: "10px" }}
+              >
                 🔥
+              </Button>
+              <Button
+                id="save"
+                variant="outlined"
+                color="primary"
+                sx={{ ml: "10px" }}
+                onClick={() => onSave(songId)}
+              >
+                💾
               </Button>
             </Box>
           </Box>
@@ -63,15 +99,17 @@ const Databox = () => {
             }}
           >
             <Typography
-              sx={{ borderBottom: "1px solid #bebebe", textAlign: "Center" }}
+              sx={{
+                borderBottom: "1px solid #bebebe",
+                textAlign: "left",
+                whiteSpace: "nowrap", // Set to nowrap to prevent text from going to the second line
+                overflow: "ellipsis", // Hide the overflow text if any
+              }}
               variant="h4"
             >
-              Song Name - Artist Name
+              {songName} - {artistName}
             </Typography>
-            <Typography sx={{ mt: "10px", textAlign: "left" }}>
-              Caption:One of my favorite songs to listen to while doing
-              HomeWork!
-            </Typography>
+            <Typography sx={{ mt: "10px", textAlign: "left" }}>{caption}</Typography>
             <Box
               sx={{
                 border: "4px solid #bebebe",
@@ -81,33 +119,13 @@ const Databox = () => {
                 ml: "60%",
               }}
             >
-              <Typography variant="h5">Posted by: Kanye </Typography>
+              <Typography>Posted by: {postedBy}</Typography>
             </Box>
           </CardContent>
         </Card>
       </Box>
     </Container>
   );
-
-  function handleReaction(id){
-    if(id === "fire"){
-      if(fireButtonState === "outlined"){
-        setFireButtonState("contained")
-      }
-      else{
-        setFireButtonState("outlined")
-      }
-    }
-    else if(id === "thumb"){
-      if(thumbButtonState === "outlined"){
-        setThumbButtonState("contained")
-      }
-      else{
-        setThumbButtonState("outlined")
-      }
-    }
-  }
 };
-
 
 export default Databox;
