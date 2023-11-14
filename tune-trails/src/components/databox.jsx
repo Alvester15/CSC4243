@@ -10,7 +10,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 
+
+
 const Databox = () => {
+  const [fireButtonState, setFireButtonState] = React.useState("outlined")
+  const [thumbButtonState, setThumbButtonState] = React.useState("outlined")
   return (
     <Container>
       <Box sx={{ my: "50px", display: "flex", justifyContent: "center" }}>
@@ -44,18 +48,17 @@ const Databox = () => {
                 height: "66px",
               }}
             >
-              <Button variant="contained" color="primary">
-                Like
+              <Button className="reaction" id="thumb" onClick={()=> handleReaction("thumb")} variant={thumbButtonState} color="primary">
+                👍
               </Button>
-              <Button variant="contained" color="secondary" sx={{ ml: "10px" }}>
-                Dislike
+              <Button className="reaction" id="fire" onClick={() => handleReaction("fire")} variant={fireButtonState} color="primary" sx={{ ml: "10px" }}>
+                🔥
               </Button>
             </Box>
           </Box>
           <CardContent
             sx={{
               width: "100%",
-
               textAlign: "center",
             }}
           >
@@ -65,7 +68,7 @@ const Databox = () => {
             >
               Song Name - Artist Name
             </Typography>
-            <Typography sx={{ mt: "10px" }}>
+            <Typography sx={{ mt: "10px", textAlign: "left" }}>
               Caption:One of my favorite songs to listen to while doing
               HomeWork!
             </Typography>
@@ -75,7 +78,7 @@ const Databox = () => {
                 borderRadius: "3px",
                 width: "200px",
                 mt: "200px",
-                ml: "475px",
+                ml: "60%",
               }}
             >
               <Typography variant="h5">Posted by: Kanye </Typography>
@@ -85,6 +88,26 @@ const Databox = () => {
       </Box>
     </Container>
   );
+
+  function handleReaction(id){
+    if(id === "fire"){
+      if(fireButtonState === "outlined"){
+        setFireButtonState("contained")
+      }
+      else{
+        setFireButtonState("outlined")
+      }
+    }
+    else if(id === "thumb"){
+      if(thumbButtonState === "outlined"){
+        setThumbButtonState("contained")
+      }
+      else{
+        setThumbButtonState("outlined")
+      }
+    }
+  }
 };
+
 
 export default Databox;
