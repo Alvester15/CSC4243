@@ -27,6 +27,7 @@ function App() {
         width: "100%",
         flexDirection: "row",
         overflow: "hidden",
+        overflow: "hidden",
       }}
     >
       {showLoginModal && (
