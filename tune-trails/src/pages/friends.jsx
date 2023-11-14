@@ -11,8 +11,9 @@ const FriendPage = () => {
       height: "94vh",
       left: "20vw",
       top : "5vh",
-      border: "2px solid black",
-      borderRadius: "8px",
+      background: "#f0f0f0",
+      borderRadius: "0px 0px 8px 8px",
+      boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
     }}>
       <Databox />
       <Databox />

@@ -12,7 +12,7 @@ function FriendsTab() {
             </Box>
             <Box sx={{ top: "5vh", height: "64vh", width: '100%', overflowY: 'scroll' }}>
             </Box>
-            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: 'auto', width: '100%', border: 1}}>
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: 'auto', width: '100%',  borderTop: 1, borderBottom: 1, borderColor: "#bebebe"}}>
                 <Button sx={{ width: '100%'}}>
                     Manage Friends
                 </Button>

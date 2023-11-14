@@ -23,10 +23,16 @@ export default function Sidebar() {
   };
 
   return (
-    <Box sx={{ position: 'relative', width: '18vw', typography: 'body1', minHeight: '94vh', border: 1, borderRadius: 3 }}>
+    <Box sx={{ position: 'relative', width: '18vw', typography: 'body1', minHeight: '94vh', background: "#f0f0f0",
+    borderRadius: "8px",
+    boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",}}>
       <TabContext value={value}> 
         <Box sx={{ borderBottom: 1, borderColor: 'divider', height: "5vh" }}>
-          <TabList onChange={handleChange} variant='fullWidth' sx={{ height: "5vh"}}>
+          <TabList onChange={handleChange} variant='fullWidth' sx={{ height: "5vh", background: "#f0f0f0", "& .MuiTabs-indicator": {
+                  backgroundColor: "#f0f0f0",
+                },
+        borderRadius: "0px 0px 8px 8px",
+        boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff", }}>
             <Tab label="Friends" value="1" />
             <Tab label="User" value="2" />
             <Tab icon={<SettingsIcon />} value="3" />

@@ -19,7 +19,10 @@ const Databox = () => {
             width: "1000px",
             height: "350px",
             display: "flex",
-            border: "6px solid black",
+            border: "6px solid #bebebe",
+            background: "#f0f0f0",
+            borderRadius: "0px 0px 8px 8px",
+            boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
           }}
         >
           <Box sx={{}}>
@@ -29,8 +32,7 @@ const Databox = () => {
                 margin: "0",
                 width: "250px",
                 height: "250px",
-                borderBottom: "solid 3px black",
-                borderTop: "solid 3px black",
+                border: "1px solid #bebebe",
               }}
               image={album}
               alt="placeholderIMG"
@@ -39,15 +41,14 @@ const Databox = () => {
               sx={{
                 textAlign: "center",
                 mt: "10%",
-                borderBottom: "solid 3px black",
                 height: "66px",
               }}
             >
               <Button variant="contained" color="primary">
-                Button 1
+                Like
               </Button>
               <Button variant="contained" color="secondary" sx={{ ml: "10px" }}>
-                Button 2
+                Dislike
               </Button>
             </Box>
           </Box>
@@ -56,11 +57,10 @@ const Databox = () => {
               width: "100%",
 
               textAlign: "center",
-              border: "3px black solid",
             }}
           >
             <Typography
-              sx={{ borderBottom: "1px solid black", textAlign: "Center" }}
+              sx={{ borderBottom: "1px solid #bebebe", textAlign: "Center" }}
               variant="h4"
             >
               Song Name - Artist Name
@@ -71,7 +71,7 @@ const Databox = () => {
             </Typography>
             <Box
               sx={{
-                border: "4px solid black",
+                border: "4px solid #bebebe",
                 borderRadius: "3px",
                 width: "200px",
                 mt: "200px",

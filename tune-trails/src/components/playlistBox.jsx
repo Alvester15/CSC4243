@@ -125,15 +125,18 @@ export default function PlaylistBox() {
         width: "18vw",
         typography: "body1",
         height: "94vh",
-        border: 1,
-        borderRadius: 3,
+        background: "#f0f0f0",
+        borderRadius: "0px 0px 8px 8px",
+        boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
         overflowY: "auto",
       }}
     >
       <Button
         startIcon={isClicked ? <MenuOpenIcon /> : <MenuIcon />}
         fullWidth={true}
-        sx={{ border: 1, borderRadius: 3 }}
+        sx={{ background: "#f0f0f0",
+        borderRadius: "0px 0px 8px 8px",
+        boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",}}
         onClick={handleClick}
       >
         <Typography variant="h6" sx={{ textAlign: "center", color: "black" }}>
@@ -173,9 +176,11 @@ export default function PlaylistBox() {
             <Button
               startIcon={<PlaylistAddSharpIcon />}
               onClick={editStatus}
-              sx={{ width: "75%", borderBottom: "1px solid black" }}
+              sx={{ width: "100%", background: "#f0f0f0",}}
             >
-              New Playlist
+              <Typography variant="p" sx={{ textAlign: "center", color: "black" }}>
+                New Playlist
+              </Typography>
             </Button>
             {playListNameEdit ? playlistNamerWrite() : playlistNamerRead()}
             {/* add buttons dynamically */}
@@ -184,10 +189,14 @@ export default function PlaylistBox() {
                 key={playlist.id}
                 sx={{
                   width: "100%",
-                  borderBottom: "1px solid black",
+                  background: "#f0f0f0",
+                  borderRadius: "0px 0px 0px 0px",
+                  borderTop: "1px solid #bebebe",
+                  boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
+                  color: "black",
                 }}
                 onDoubleClick={(event) => internalPlaylist(event, playlist.id, playlist.name)}
               >
