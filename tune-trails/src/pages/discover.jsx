@@ -11,6 +11,7 @@ const Discover = () => {
   const { fetchRecommendations } = useRecommendationsData();
   const [recommendations, setRecommendations] = useState([]);
 
+
   const fetchData = async () => {
     const data = await fetchRecommendations();
     if (data) {

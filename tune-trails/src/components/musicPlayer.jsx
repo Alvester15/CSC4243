@@ -10,6 +10,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { useAuth } from "../context/authContext";
+import { useAppContext } from '../context/appContext';
 
 const track = {
   "album": {
@@ -237,9 +238,9 @@ export default function MusicPlayer(props) {
   const [is_active, setActive] = useState(false);
   const [player, setPlayer] = useState(undefined);
   const [current_track, setTrack] = useState(track);
-
+  const { state } = useAppContext();
+  const { currentTrack } = state;
   const theme = useTheme();
-
     useEffect(() => {
 
       if (!accessToken) {
@@ -278,7 +279,7 @@ export default function MusicPlayer(props) {
                   return;
               }
 
-              setTrack(state.track_window.current_track);
+              setTrack(state.track_window.currentTrack);
               setPaused(state.paused);
 
               player.getCurrentState().then( state => { 
@@ -292,15 +293,18 @@ export default function MusicPlayer(props) {
       };
   }, [accessToken]);
 
+    if (!currentTrack) {
+      return null;
+    }
     return (
       <Card sx={{ display: 'flex', flexDirection: 'row', height: '16vh', width: '18vw', background: "#f0f0f0", borderRadius: "0px 0px 8px 8px", boxShadow: "5px 5px 10px #bebebe", borderTop: 3, borderTopColor: "#bebebe", justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
             <Typography component="div" variant="h6" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
-              {current_track.name}
+              {currentTrack.name}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              {current_track.artists[0].name}
+              {currentTrack.artists[0].name}
             </Typography>
           </CardContent>
           <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -318,7 +322,7 @@ export default function MusicPlayer(props) {
         <CardMedia
           component="img"
           sx={{ width: '16vh', right: 0 }}
-          image={current_track.album.images[0].url}
+          image={currentTrack.album.images[0].url}
           alt="Live from space album cover"
         />
       </Card>

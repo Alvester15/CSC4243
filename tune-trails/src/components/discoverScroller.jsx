@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAppContext, setCurrentTrack } from '../context/appContext';
 import { Box, Card, CardMedia, IconButton, Typography, CardContent, Slide } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -7,6 +8,11 @@ function DiscoverScroller({ tracks }) {
   const [startIndex, setStartIndex] = useState(0);
   const [slideIn, setSlideIn] = useState(true);
   const [slideDirection, setSlideDirection] = useState('right');
+  const { dispatch } = useAppContext();
+
+  const handleDoubleClick = (track) => {
+    setCurrentTrack(dispatch, track);
+  };
 
   const handleNext = () => {
     if (startIndex + 4 < tracks.length) {
@@ -46,6 +52,8 @@ function DiscoverScroller({ tracks }) {
                   component="img"
                   height="200"
                   image={track.album.images[0].url}
+                  onDoubleClick={() => handleDoubleClick(track)}
+                  sx={{ cursor: 'pointer' }}
                 />
                 <CardContent>
                   <Typography>

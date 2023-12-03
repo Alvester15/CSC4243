@@ -5,6 +5,7 @@ const AppContext = createContext();
 const initialState = {
   openPlaylist: null,
   newSongs: [],
+  currentTrack: null,
 };
 
 const actionTypes = {
@@ -12,6 +13,7 @@ const actionTypes = {
   CLEAR_OPEN_PLAYLIST: 'CLEAR_OPEN_PLAYLIST',
   ADD_NEW_SONG: 'ADD_NEW_SONG',
   CLEAR_NEW_SONGS: 'CLEAR_NEW_SONGS',
+  SET_CURRENT_TRACK: 'SET_CURRENT_TRACK',
 };
 
 const appReducer = (state, action) => {
@@ -24,6 +26,8 @@ const appReducer = (state, action) => {
       return { ...state, newSongs: [...state.newSongs, action.payload] };
     case actionTypes.CLEAR_NEW_SONGS:
       return { ...state, newSongs: [] }; // Clear the newSongs array
+    case actionTypes.SET_CURRENT_TRACK:
+      return { ...state, currentTrack: action.payload };
     default:
       return state;
   }
@@ -41,6 +45,13 @@ export const ContextProvider = ({ children }) => {
 
 export const useAppContext = () => {
   return useContext(AppContext);
+};
+
+export const setCurrentTrack = (dispatch, track) => {
+  dispatch({
+    type: actionTypes.SET_CURRENT_TRACK,
+    payload: track,
+  });
 };
 
 export { actionTypes };
