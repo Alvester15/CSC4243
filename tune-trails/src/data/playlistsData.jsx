@@ -75,7 +75,7 @@ export const usePlaylistsData = () => {
     };
 
     fetchPlaylists();
-  }, [accessToken]);
+  }, [accessToken] );
 
   return { playlists, error, fetchPlaylistTracks };
 };

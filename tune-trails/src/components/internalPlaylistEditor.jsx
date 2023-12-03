@@ -17,7 +17,7 @@ const InternalPlaylistEditor = (props) => {
     };
 
     // Call the fetchPlaylistTracks function when the component mounts or when playlistId changes
-    if (playlistId) {
+    if (playlistId.id) {
       fetchPlaylistTracks(playlistId);
     }
 
@@ -39,17 +39,23 @@ const InternalPlaylistEditor = (props) => {
     try {
       if (newSongUris.length > 0) {
         // Call the addTracksToPlaylist function to add new songs to the playlist
-        await addTracks(playlistId.id, newSongUris);
+        const response = await addTracks(playlistId.id, newSongUris);
+
+        // Check if the response status is 200 (OK)
+        if (response.status === 200) {
+          // Fetch updated tracks when the operation is successful
+          fetchPlaylistTracks(playlistId);
+        }
       }
   
       // Clear the newSongs array in the context
-      dispatch({ type: actionTypes.CLEAR_NEW_SONGS });
   
       // Clear openPlaylist in the context
-      dispatch({ type: actionTypes.CLEAR_OPEN_PLAYLIST });
   
       // Trigger onSaveAndClose callback
       props.onSaveAndClose();
+      dispatch({ type: actionTypes.CLEAR_NEW_SONGS });
+      dispatch({ type: actionTypes.CLEAR_OPEN_PLAYLIST });
     } catch (error) {
       // Handle error, e.g., display an error message
       console.error("Error adding new songs to playlist:", error);

@@ -14,11 +14,11 @@ const UserTab = () => {
                 <Typography variant='h6' sx={{ mb: 1 }}>{user?.display_name}</Typography>
                 <Typography variant='body1' sx={{ mb: 2 }}>560 👍 70 🔥</Typography>
             </Box>
-            <Box sx={{ position: 'absolute', top: "22vh", width: '100%', height: '47.1vh', display: 'flex', flexDirection: 'column', overflowY: 'scroll'}}>
+            <Box sx={{ position: 'absolute', top: "22vh", width: '100%', height: '47.2vh', display: 'flex', flexDirection: 'column', overflowY: 'scroll'}}>
                 <Notification notif="Your Post has 100 Likes!"/>
                 <Notification notif="50 people added a song you shared!"/>
             </Box>
-            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '26.5vh', width: '100%', borderTop: 1, borderBottom: 1, borderColor: "#bebebe"}}>
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '26.6vh', width: '100%', borderTop: 2, borderColor: "#bebebe"}}>
                 <Button sx={{ width: '100%'}}>
                     Clear Notifications
                 </Button>

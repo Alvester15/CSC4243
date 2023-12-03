@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 
 function FriendSearch() { 
     return (
-        <Box sx = {{ width: 'calc(18vw - 1px)', height: 50, display: 'flex', alignItems:'center', border: 1 }}>
+        <Box sx = {{ width: 'calc(18vw - 1px)', height: 50, display: 'flex', alignItems:'center', border: 1, borderColor: "#bebebe"}}>
             <Autocomplete
             disabled
             freeSolo
