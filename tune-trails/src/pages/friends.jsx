@@ -2,43 +2,41 @@ import React, { useState } from "react";
 import Databox from "../components/databox";
 import { useAppContext, actionTypes } from "../context/appContext";
 import { Tooltip, Button, Box } from "@mui/material";
-
-const dummyData = [
-  {
-    id: 1,
-    songName: "Better Days",
-    artistName: "NEIKED, Mae Muller, Polo G",
-    caption: "Better Days is such a bop, can't stop listening to it!",
-    postedBy: "legomario",
-    songId: "6f5ExP43esnvdKPddwKXJH",
-    imageUrl: "https://i.scdn.co/image/ab67616d0000b2736b742298f7f36717855c4caf",
-  },
-  {
-    id: 2,
-    songName: "Forever",
-    artistName: "Drake, Kanye West, Lil Wayne, Eminem",
-    caption: "This has to be one of the best rap songs of all time, has all the GOATs!",
-    postedBy: "number1drakefan",
-    songId: "6HSqyfGnsHYw9MmIpa9zlZ",
-    imageUrl: "https://i.scdn.co/image/ab67616d0000b2737c22c8b9a5cfe27cd9914c4c",
-  },
-  {
-    id: 3,
-    songName: "NO TRENDS",
-    artistName: "Mike Dimes",
-    caption: "Mike Dimes is definitely underrated, check him out!",
-    postedBy: "hiphopfanatic",
-    songId: "7oAN2D1k9Qz8qh2JaNcZrj",
-    imageUrl: "https://i.scdn.co/image/ab67616d0000b273dce40e711acba2ddb7612856",
-  },
-
-  // Add more dummy data objects as needed
-];
+import CreatePost from "../components/createPost"
 
 const FriendPage = () => {
   const { state, dispatch } = useAppContext();
   const { openPlaylist } = state;
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [dummyData, setDummyData] = useState([
+    {
+      id: 1,
+      songName: "Better Days",
+      artistName: "NEIKED, Mae Muller, Polo G",
+      caption: "Better Days is such a bop, can't stop listening to it!",
+      postedBy: "legomario",
+      songId: "6f5ExP43esnvdKPddwKXJH",
+      imageUrl: "https://i.scdn.co/image/ab67616d0000b2736b742298f7f36717855c4caf",
+    },
+    {
+      id: 2,
+      songName: "Forever",
+      artistName: "Drake, Kanye West, Lil Wayne, Eminem",
+      caption: "This has to be one of the best rap songs of all time, has all the GOATs!",
+      postedBy: "number1drakefan",
+      songId: "6HSqyfGnsHYw9MmIpa9zlZ",
+      imageUrl: "https://i.scdn.co/image/ab67616d0000b2737c22c8b9a5cfe27cd9914c4c",
+    },
+    {
+      id: 3,
+      songName: "NO TRENDS",
+      artistName: "Mike Dimes",
+      caption: "Mike Dimes is definitely underrated, check him out!",
+      postedBy: "hiphopfanatic",
+      songId: "7oAN2D1k9Qz8qh2JaNcZrj",
+      imageUrl: "https://i.scdn.co/image/ab67616d0000b273dce40e711acba2ddb7612856",
+    },
+  ])
 
   const saveToPlaylist = async (playlist, songId) => {
     try {
@@ -63,6 +61,19 @@ const FriendPage = () => {
       console.error("Error saving to playlist:", error);
       // Handle the error as needed
     }
+  };
+
+  const addNewPost = (postData) => {
+    // Add the new post data to your dummyData array
+    const newPost = {
+      id: dummyData.length + 1, // Generate a unique ID here; you might use a library like `uuid` for this
+      ...postData,
+    };
+
+    // Update state or perform any necessary action with the new post
+    setDummyData([...dummyData, newPost]); // Assuming `setDummyData` is your state setter function
+
+    // Other actions you might want to perform after adding the new post
   };
   
 
@@ -95,7 +106,12 @@ const FriendPage = () => {
           onSave={() => saveToPlaylist(openPlaylist, data.songId)}
         />
       ))}
+      
+      <CreatePost onAddPost={addNewPost}/>
+    
     </Box>
+
+    
   );
 };
 

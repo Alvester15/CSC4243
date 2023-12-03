@@ -83,7 +83,7 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
               </Button>
               <Button
                 id="save"
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 sx={{ ml: "10px" }}
                 onClick={() => onSave(songId)}
