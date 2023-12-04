@@ -1,5 +1,4 @@
-import album from "../assets/pexels-dids-1616470.jpg";
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -10,7 +9,26 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/material";
 
-const Databox = () => {
+const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, songId }) => {
+  const [fireButtonState, setFireButtonState] = useState("outlined");
+  const [thumbButtonState, setThumbButtonState] = useState("outlined");
+
+  function handleReaction(id) {
+    if (id === "fire") {
+      if (fireButtonState === "outlined") {
+        setFireButtonState("contained");
+      } else {
+        setFireButtonState("outlined");
+      }
+    } else if (id === "thumb") {
+      if (thumbButtonState === "outlined") {
+        setThumbButtonState("contained");
+      } else {
+        setThumbButtonState("outlined");
+      }
+    }
+  }
+
   return (
     <Container>
       <Box sx={{ my: "50px", display: "flex", justifyContent: "center" }}>
@@ -19,7 +37,10 @@ const Databox = () => {
             width: "1000px",
             height: "350px",
             display: "flex",
-            border: "6px solid black",
+            border: "6px solid #bebebe",
+            background: "#f0f0f0",
+            borderRadius: "0px 0px 8px 8px",
+            boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
           }}
         >
           <Box sx={{}}>
@@ -29,56 +50,76 @@ const Databox = () => {
                 margin: "0",
                 width: "250px",
                 height: "250px",
-                borderBottom: "solid 3px black",
-                borderTop: "solid 3px black",
+                border: "1px solid #bebebe",
               }}
-              image={album}
+              image={imageUrl}
               alt="placeholderIMG"
             ></CardMedia>
             <Box
               sx={{
                 textAlign: "center",
                 mt: "10%",
-                borderBottom: "solid 3px black",
                 height: "66px",
               }}
             >
-              <Button variant="contained" color="primary">
-                Button 1
+              <Button
+                className="reaction"
+                id="thumb"
+                onClick={() => handleReaction("thumb")}
+                variant={thumbButtonState}
+                color="primary"
+              >
+                👍
               </Button>
-              <Button variant="contained" color="secondary" sx={{ ml: "10px" }}>
-                Button 2
+              <Button
+                className="reaction"
+                id="fire"
+                onClick={() => handleReaction("fire")}
+                variant={fireButtonState}
+                color="primary"
+                sx={{ ml: "10px" }}
+              >
+                🔥
+              </Button>
+              <Button
+                id="save"
+                variant="outlined"
+                color="primary"
+                sx={{ ml: "10px" }}
+                onClick={() => onSave(songId)}
+              >
+                💾
               </Button>
             </Box>
           </Box>
           <CardContent
             sx={{
               width: "100%",
-
               textAlign: "center",
-              border: "3px black solid",
             }}
           >
             <Typography
-              sx={{ borderBottom: "1px solid black", textAlign: "Center" }}
+              sx={{
+                borderBottom: "1px solid #bebebe",
+                textAlign: "left",
+                whiteSpace: "nowrap", // Set to nowrap to prevent text from going to the second line
+                overflow: "ellipsis", // Hide the overflow text if any
+              }}
               variant="h4"
             >
-              Song Name - Artist Name
+              {songName} - {artistName}
             </Typography>
-            <Typography sx={{ mt: "10px" }}>
-              Caption:One of my favorite songs to listen to while doing
-              HomeWork!
-            </Typography>
+            <Typography sx={{ mt: "10px", textAlign: "left" }}>{caption}</Typography>
             <Box
               sx={{
-                border: "4px solid black",
+                border: "4px solid #bebebe",
                 borderRadius: "3px",
                 width: "200px",
                 mt: "200px",
-                ml: "475px",
+                ml: "60%",
               }}
             >
-              <Typography variant="h5">Posted by: Kanye </Typography>
+              <Typography>Posted by: {postedBy}</Typography>
             </Box>
           </CardContent>
         </Card>
