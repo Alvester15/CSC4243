@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useAppContext, actionTypes } from "../context/appContext";
+import { useAppContext, actionTypes, setCurrentTrack } from "../context/appContext";
 import { useModifyPlaylist } from "../data/modifyPlaylists";
+import CloseButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import { Box, Stack, Typography, Button } from "@mui/material";
+import { useDrop } from "react-dnd";
 
 const InternalPlaylistEditor = (props) => {
   const { state, dispatch } = useAppContext();
@@ -25,9 +28,31 @@ const InternalPlaylistEditor = (props) => {
     dispatch({ type: actionTypes.SET_OPEN_PLAYLIST, payload: playlistId.id });
   }, [playlistId.id, dispatch ]);
 
+  const handleDrop = (item) => {
+    // Extract the dropped track from the item
+    const droppedTrack = item.track;
+
+    // Check if the song is already in newSongs or the playlist
+    const isSongInNewSongs = newSongs.some((song) => song.id === droppedTrack.id);
+    const isSongInPlaylist = tracks.some((track) => track.track.id === droppedTrack.id);
+
+    if (!isSongInNewSongs && !isSongInPlaylist) {
+      // Update the newSongs state with the dropped track
+      dispatch({ type: actionTypes.ADD_NEW_SONG, payload: droppedTrack });
+    } else {
+      // Handle the case where the song is already in newSongs or the playlist
+      alert('Song is already added.');
+    }
+  };
+
+  const [, drop] = useDrop({
+    accept: 'card',
+    drop: (item) => handleDrop(item),
+  });
+
   const handleSaveAndClose = async () => {
     // Extract the song IDs of the new songs
-    const newSongIds = newSongs.map(song => song.songId);
+    const newSongIds = newSongs.map(song => song.id);
     // Extract the song IDs of the existing tracks
     const existingSongIds = tracks.map(track => track.track.id);
   
@@ -62,14 +87,31 @@ const InternalPlaylistEditor = (props) => {
     }
   };
   
-  
-  
+  const handleCancel = () => {
+    // Clear the newSongs array in the context
+    dispatch({ type: actionTypes.CLEAR_NEW_SONGS });
+
+    // Clear openPlaylist in the context
+    dispatch({ type: actionTypes.CLEAR_OPEN_PLAYLIST });
+
+    // Trigger onCancel callback
+    props.onCancel();
+  };
+
+  const handleDoubleClick = (track) => {
+    setCurrentTrack(dispatch, track);
+  };
 
   return (
-    <Box>
-      <Typography variant="h4" mb={2}>
-        {playlistName}
-      </Typography>
+    <Box ref={drop}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2} ml={2}>
+        <Typography variant="h4">{playlistName}</Typography>
+        
+        {/* Close button */}
+        <CloseButton onClick={handleCancel}>
+          <CloseIcon />
+        </CloseButton>
+      </Stack>
       <Stack
         sx={{
           height: "65vh",
@@ -96,6 +138,7 @@ const InternalPlaylistEditor = (props) => {
               borderRadius: "0px",
               color: "black",
             }}
+            onDoubleClick={() => handleDoubleClick(track.track)}
           >
             <img
               src={track.track.album.images[0].url}
@@ -105,7 +148,7 @@ const InternalPlaylistEditor = (props) => {
             {track.track.name}
           </Button>
         ))}
-        {newSongs.map((song, index) => (
+        {newSongs.map((track, index) => (
           <Button
             key={index}
             sx={{
@@ -122,13 +165,14 @@ const InternalPlaylistEditor = (props) => {
               borderRadius: "0px",
               color: "black",
             }}
+            onDoubleClick={() => handleDoubleClick(track)}
           >
             <img
-              src={song.imageUrl}
+              src={track.album.images[0].url}
               alt="album cover"
               style={{ width: "50px", height: "50px", marginRight: "10px" }}
             />
-            {song.songName}
+            {track.name}
           </Button>
         ))}
       </Stack>

@@ -73,7 +73,7 @@ export default function MusicPlayer(props) {
       if (!currentTrack || !accessToken) {
           return;
       }
-      playTrack(currentTrack.uri, deviceId);
+      playTrack(currentTrack.id, deviceId);
     }, [currentTrack, player]);
 
     useEffect(() => {

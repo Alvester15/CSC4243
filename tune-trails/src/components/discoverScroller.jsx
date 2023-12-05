@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useAppContext, setCurrentTrack } from '../context/appContext';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useDrag } from 'react-dnd';
+import DraggableCardMedia from './draggableCardMedia';
 import { Box, Card, CardMedia, IconButton, Typography, CardContent, Slide } from '@mui/material';
 
 function DiscoverScroller({ tracks }) {
@@ -45,16 +47,14 @@ function DiscoverScroller({ tracks }) {
       </IconButton>
       <Box sx={{ width: '50vw', overflow: 'hidden' }}>
         <Slide direction={slideDirection} in={slideIn} mountOnEnter unmountOnExit timeout={200}>
-          <Box sx={{ display: 'flex', overflow: 'auto' }}>
+          <Box sx={{ display: 'flex', overflow: 'none' }}>
             {tracks.slice(startIndex, startIndex + 4).map((track, index) => (
               <Card key={index} sx={{ width: 200, mx: 2, my: 1, height: '30vh', border: 3, borderColor: "#bebebe"}}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={track.album.images[0].url}
-                  onDoubleClick={() => handleDoubleClick(track)}
-                  sx={{ cursor: 'pointer' }}
-                />
+                  <DraggableCardMedia
+                    track={track}
+                    onDoubleClick={handleDoubleClick}
+                    size={200} // Set your custom height here
+                  />
                 <CardContent>
                   <Typography>
                     {track.name}
