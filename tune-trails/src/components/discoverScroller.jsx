@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useAppContext, setCurrentTrack } from '../context/appContext';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useDrag } from 'react-dnd';
 import DraggableCardMedia from './draggableCardMedia';
-import { Box, Card, CardMedia, IconButton, Typography, CardContent, Slide } from '@mui/material';
+import { Box, Card, IconButton, Typography, CardContent, Slide } from '@mui/material';
 
 function DiscoverScroller({ tracks }) {
   const [startIndex, setStartIndex] = useState(0);
@@ -63,7 +62,7 @@ function DiscoverScroller({ tracks }) {
               </Card>
             ))}
           </Box>
-        </ Slide>
+        </Slide>
       </Box>
       <IconButton onClick={handleNext} disabled={startIndex + 4 >= tracks.length}>
         <ArrowForwardIosIcon />

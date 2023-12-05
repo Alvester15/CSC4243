@@ -3,6 +3,7 @@ import { useAppContext, actionTypes, setCurrentTrack } from "../context/appConte
 import { useModifyPlaylist } from "../data/modifyPlaylists";
 import CloseButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { usePlaylistsData } from "../data/playlistsData";
 import { Box, Stack, Typography, Button } from "@mui/material";
 import { useDrop } from "react-dnd";
 
@@ -12,16 +13,17 @@ const InternalPlaylistEditor = (props) => {
   const playlistId = props.playlistId;
   const playlistName = props.playlistName;
   const { addTracks } = useModifyPlaylist();
+  const { fetchPlaylistTracks } = usePlaylistsData();
   const [tracks, setTracks] = useState([]);
 
-  useEffect(() => {
-    const fetchPlaylistTracks = async (playlistId) => {
-      setTracks(playlistId.tracks);
-    };
+  const fetchTracks = async (playlistId) => {
+    const tracks = await fetchPlaylistTracks(playlistId);
+    setTracks(tracks);
+  };
 
-    // Call the fetchPlaylistTracks function when the component mounts or when playlistId changes
+  useEffect(() => {
     if (playlistId.id) {
-      fetchPlaylistTracks(playlistId);
+      fetchTracks(playlistId.id);
     }
 
     // Update openPlaylist in the context when playlistId changes

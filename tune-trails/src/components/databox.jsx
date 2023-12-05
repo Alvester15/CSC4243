@@ -4,15 +4,16 @@ import {
   Button,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Typography,
 } from "@mui/material";
+import { useAppContext, setCurrentTrack } from "../context/appContext";
 import { Box } from "@mui/material";
 
 const Databox = ({ track, caption, postedBy, onSave }) => {
   const [fireButtonState, setFireButtonState] = useState("outlined");
   const [thumbButtonState, setThumbButtonState] = useState("outlined");
+  const { dispatch } = useAppContext();
 
   function handleReaction(id) {
     if (id === "fire") {
@@ -29,6 +30,10 @@ const Databox = ({ track, caption, postedBy, onSave }) => {
       }
     }
   }
+
+  const handleDoubleClick = (track) => {
+    setCurrentTrack(dispatch, track);
+  };
 
   return (
     <Container>
@@ -55,6 +60,7 @@ const Databox = ({ track, caption, postedBy, onSave }) => {
             <DraggableCardMedia
               size={250}
               track={track}
+              onDoubleClick={handleDoubleClick}
             ></DraggableCardMedia>
             <Box sx={{ display: "flex", flexDirection: 'row', mt: 1, justifyContent: 'space-around'}}>
               <Button
