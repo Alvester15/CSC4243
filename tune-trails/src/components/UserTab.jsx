@@ -18,7 +18,7 @@ const UserTab = () => {
                 <Notification notif="Your Post has 100 Likes!"/>
                 <Notification notif="50 people added a song you shared!"/>
             </Box>
-            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '26.6vh', width: '100%', borderTop: 2, borderColor: "#bebebe"}}>
+            <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '26.6vh', width: '100%', borderTop: 2, borderBottom: 1, borderColor: "#bebebe"}}>
                 <Button sx={{ width: '100%'}}>
                     Clear Notifications
                 </Button>

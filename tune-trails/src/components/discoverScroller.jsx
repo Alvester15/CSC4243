@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAppContext, setCurrentTrack } from '../context/appContext';
-import { Box, Card, CardMedia, IconButton, Typography, CardContent, Slide } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Box, Card, CardMedia, IconButton, Typography, CardContent, Slide } from '@mui/material';
 
 function DiscoverScroller({ tracks }) {
   const [startIndex, setStartIndex] = useState(0);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Grid, Stack, Avatar, Typography } from "@mui/material"; // Import Grid from MUI
 import { useAuth } from "../context/authContext";
 import TuneTrail from "../data/tuneTrail";
+import { Box, Button, Grid, Stack, Avatar, Typography } from "@mui/material"; // Import Grid from MUI
 
 const Profile = (props) => {
   const { user } = useAuth();
