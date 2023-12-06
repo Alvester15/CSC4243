@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import DraggableCardMedia from "./draggableCardMedia";
 import {
   Button,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Typography,
 } from "@mui/material";
+import { useAppContext, setCurrentTrack } from "../context/appContext";
 import { Box } from "@mui/material";
 
-const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, songId }) => {
+const Databox = ({ track, caption, postedBy, onSave }) => {
   const [fireButtonState, setFireButtonState] = useState("outlined");
   const [thumbButtonState, setThumbButtonState] = useState("outlined");
+  const { dispatch } = useAppContext();
 
   function handleReaction(id) {
     if (id === "fire") {
@@ -29,6 +31,10 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
     }
   }
 
+  const handleDoubleClick = (track) => {
+    setCurrentTrack(dispatch, track);
+  };
+
   return (
     <Container>
       <Box sx={{ my: "50px", display: "flex", justifyContent: "center" }}>
@@ -43,25 +49,20 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
             boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
           }}
         >
-          <Box sx={{}}>
-            <CardMedia
-              component="img"
-              sx={{
-                margin: "0",
-                width: "250px",
-                height: "250px",
-                border: "1px solid #bebebe",
-              }}
-              image={imageUrl}
-              alt="placeholderIMG"
-            ></CardMedia>
-            <Box
-              sx={{
-                textAlign: "center",
-                mt: "10%",
-                height: "66px",
-              }}
-            >
+          <Box 
+            sx={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column", 
+              width: "350px",
+            }}
+          >
+            <DraggableCardMedia
+              size={250}
+              track={track}
+              onDoubleClick={handleDoubleClick}
+            ></DraggableCardMedia>
+            <Box sx={{ display: "flex", flexDirection: 'row', mt: 1, justifyContent: 'space-around'}}>
               <Button
                 className="reaction"
                 id="thumb"
@@ -77,7 +78,6 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
                 onClick={() => handleReaction("fire")}
                 variant={fireButtonState}
                 color="primary"
-                sx={{ ml: "10px" }}
               >
                 🔥
               </Button>
@@ -85,8 +85,7 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
                 id="save"
                 variant="outlined"
                 color="primary"
-                sx={{ ml: "10px" }}
-                onClick={() => onSave(songId)}
+                onClick={() => onSave(track.id)}
               >
                 💾
               </Button>
@@ -107,7 +106,7 @@ const Databox = ({ songName, artistName, caption, postedBy, imageUrl, onSave, so
               }}
               variant="h4"
             >
-              {songName} - {artistName}
+              {track.name} - {track.artists[0].name}
             </Typography>
             <Typography sx={{ mt: "10px", textAlign: "left" }}>{caption}</Typography>
             <Box

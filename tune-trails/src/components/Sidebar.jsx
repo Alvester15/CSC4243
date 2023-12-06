@@ -8,6 +8,7 @@ import UserTab from './userTab';
 import FriendsTab from './friendTab';
 import Button from '@mui/material/Button';
 import { useAuth } from '../context/authContext';
+import MusicPlayer from './musicPlayer';
 import { Box } from "@mui/material";
 
 export default function Sidebar() {
@@ -50,6 +51,9 @@ export default function Sidebar() {
           </Button>
         </TabPanel>
       </TabContext>
+      <Box sx={{ position: 'absolute', bottom: 0, width: '100%',}}>
+        <MusicPlayer />
+      </Box>
     </Box>
   );
 }

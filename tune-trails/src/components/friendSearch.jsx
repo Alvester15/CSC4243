@@ -1,26 +1,42 @@
 import React from "react";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { TextField, Autocomplete, IconButton } from "@mui/material";
+import {
+  TextField,
+  Autocomplete,
+  IconButton,
+  Snackbar,
+  Alert,
+  Slide,
+} from "@mui/material";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+
+const SlideTransition = (props) => <Slide {...props} direction="left" />;
 
 function FriendSearch() {
   const [addFriend, setAddFriend] = useState([]);
   const [friendSearchStatus, setFriendSearchStatus] = useState(false);
-  const [inputValue, setInputValue] = useState(""); // Add state to track input value
+  const [inputValue, setInputValue] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleFriendSelect = (event, value) => {
-    setInputValue(value); // Update input value state
-    // Add the selected user to the addFriend state
+    setInputValue(value);
     setAddFriend((prevAddFriend) => [...prevAddFriend, value]);
     setFriendSearchStatus(Boolean(value));
   };
 
   const friendAdd = () => {
-    alert("Friend request sent!");
+    setSnackbarOpen(true);
     setFriendSearchStatus(false);
-    setInputValue(""); // Clear input value
+    setInputValue("");
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -40,7 +56,7 @@ function FriendSearch() {
         sx={{ width: "90%" }}
         noOptionsText={"No users found"}
         onInputChange={handleFriendSelect}
-        value={inputValue} // Set the value prop to control the input value
+        value={inputValue}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -61,6 +77,23 @@ function FriendSearch() {
           <SearchIcon sx={{ ml: 1, my: 0.5 }} />
         </IconButton>
       )}
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3500}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        TransitionComponent={SlideTransition}
+        style={{ bottom: "300px", right: "75px" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          sx={{ width: "300px", fontSize: "16px" }}
+        >
+          Friend {inputValue} has been added!
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

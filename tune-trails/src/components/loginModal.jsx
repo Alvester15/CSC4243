@@ -7,7 +7,7 @@ const LoginModal = ({ open, onClose }) => {
     const queries = {
         response_type: 'code',
         client_id: import.meta.env.VITE_SPOTIFY_CLIENT_ID,
-        scope: 'user-read-email playlist-read-private playlist-modify-public playlist-modify-private user-top-read user-read-recently-played',
+        scope: 'user-read-email playlist-read-private playlist-modify-public playlist-modify-private user-top-read user-read-recently-played user-read-playback-state user-modify-playback-state streaming',
         redirect_uri: 'http://localhost:5173/callback',
     };
     location.assign(
