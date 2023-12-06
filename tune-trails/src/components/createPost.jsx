@@ -46,8 +46,8 @@ const CreatePost = ({ onAddPost }) => {
       <div
         style={{
           position: 'fixed',
-          bottom: '20px', // Adjust as needed
-          right: '20px', // Adjust as needed
+          bottom: '90%', // Adjust as needed
+          right: '22%', // Adjust as needed
           zIndex: '1000', // Ensure the button appears above other content
         }}
       >
