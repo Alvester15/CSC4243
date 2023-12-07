@@ -1,16 +1,40 @@
-import album from "../assets/pexels-dids-1616470.jpg";
-import React from "react";
+import React, { useState } from "react";
+import DraggableCardMedia from "./draggableCardMedia";
 import {
   Button,
   Card,
   CardContent,
-  CardMedia,
   Container,
   Typography,
 } from "@mui/material";
+import { useAppContext, setCurrentTrack } from "../context/appContext";
 import { Box } from "@mui/material";
 
-const Databox = () => {
+const Databox = ({ track, caption, postedBy, onSave }) => {
+  const [fireButtonState, setFireButtonState] = useState("outlined");
+  const [thumbButtonState, setThumbButtonState] = useState("outlined");
+  const { dispatch } = useAppContext();
+
+  function handleReaction(id) {
+    if (id === "fire") {
+      if (fireButtonState === "outlined") {
+        setFireButtonState("contained");
+      } else {
+        setFireButtonState("outlined");
+      }
+    } else if (id === "thumb") {
+      if (thumbButtonState === "outlined") {
+        setThumbButtonState("contained");
+      } else {
+        setThumbButtonState("outlined");
+      }
+    }
+  }
+
+  const handleDoubleClick = (track) => {
+    setCurrentTrack(dispatch, track);
+  };
+
   return (
     <Container>
       <Box sx={{ my: "50px", display: "flex", justifyContent: "center" }}>
@@ -19,66 +43,82 @@ const Databox = () => {
             width: "1000px",
             height: "350px",
             display: "flex",
-            border: "6px solid black",
+            border: "6px solid #bebebe",
+            background: "#f0f0f0",
+            borderRadius: "0px 0px 8px 8px",
+            boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
           }}
         >
-          <Box sx={{}}>
-            <CardMedia
-              component="img"
-              sx={{
-                margin: "0",
-                width: "250px",
-                height: "250px",
-                borderBottom: "solid 3px black",
-                borderTop: "solid 3px black",
-              }}
-              image={album}
-              alt="placeholderIMG"
-            ></CardMedia>
-            <Box
-              sx={{
-                textAlign: "center",
-                mt: "10%",
-                borderBottom: "solid 3px black",
-                height: "66px",
-              }}
-            >
-              <Button variant="contained" color="primary">
-                Button 1
+          <Box 
+            sx={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column", 
+              width: "350px",
+            }}
+          >
+            <DraggableCardMedia
+              size={250}
+              track={track}
+              onDoubleClick={handleDoubleClick}
+            ></DraggableCardMedia>
+            <Box sx={{ display: "flex", flexDirection: 'row', mt: 1, justifyContent: 'space-around'}}>
+              <Button
+                className="reaction"
+                id="thumb"
+                onClick={() => handleReaction("thumb")}
+                variant={thumbButtonState}
+                color="primary"
+              >
+                👍
               </Button>
-              <Button variant="contained" color="secondary" sx={{ ml: "10px" }}>
-                Button 2
+              <Button
+                className="reaction"
+                id="fire"
+                onClick={() => handleReaction("fire")}
+                variant={fireButtonState}
+                color="primary"
+              >
+                🔥
+              </Button>
+              <Button
+                id="save"
+                variant="outlined"
+                color="primary"
+                onClick={() => onSave(track.id)}
+              >
+                💾
               </Button>
             </Box>
           </Box>
           <CardContent
             sx={{
               width: "100%",
-
               textAlign: "center",
-              border: "3px black solid",
             }}
           >
             <Typography
-              sx={{ borderBottom: "1px solid black", textAlign: "Center" }}
+              sx={{
+                borderBottom: "1px solid #bebebe",
+                textAlign: "left",
+                whiteSpace: "nowrap", // Set to nowrap to prevent text from going to the second line
+                overflow: "ellipsis", // Hide the overflow text if any
+              }}
               variant="h4"
             >
-              Song Name - Artist Name
+              {track.name} - {track.artists[0].name}
             </Typography>
-            <Typography sx={{ mt: "10px" }}>
-              Caption:One of my favorite songs to listen to while doing
-              HomeWork!
-            </Typography>
+            <Typography sx={{ mt: "10px", textAlign: "left" }}>{caption}</Typography>
             <Box
               sx={{
-                border: "4px solid black",
+                border: "4px solid #bebebe",
                 borderRadius: "3px",
                 width: "200px",
                 mt: "200px",
-                ml: "475px",
+                ml: "60%",
               }}
             >
-              <Typography variant="h5">Posted by: Kanye </Typography>
+              <Typography>Posted by: {postedBy}</Typography>
             </Box>
           </CardContent>
         </Card>
