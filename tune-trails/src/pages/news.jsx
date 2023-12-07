@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Typography, Card, CardMedia, CardContent, Link} from "@mui/material";
+import { Typography, Card, CardMedia, CardContent, Link} from "@mui/material";
+import { Box } from "@mui/material";
 
 const News = () => {
   return (
