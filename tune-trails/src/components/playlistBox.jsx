@@ -8,11 +8,11 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import { Box } from "@mui/material";
 import InternalPlaylistEditor from "./internalPlaylistEditor";
 import { usePlaylistsData } from "../data/playlistsData";
 import { useModifyPlaylist } from "../data/modifyPlaylists";
 import PlaylistMoreMenu from "./playlistMoreMenu";
+import { Box } from "@mui/material";
 
 export default function PlaylistBox() {
   const [isClicked, setClick] = useState(false);

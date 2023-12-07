@@ -68,7 +68,7 @@ const Databox = ({ track, caption, postedBy, onSave }) => {
                 id="thumb"
                 onClick={() => handleReaction("thumb")}
                 variant={thumbButtonState}
-                color="primary"
+                sx={{border: "2px solid #bebebe", background: "#f0f0f0",}}
               >
                 👍
               </Button>
@@ -77,14 +77,14 @@ const Databox = ({ track, caption, postedBy, onSave }) => {
                 id="fire"
                 onClick={() => handleReaction("fire")}
                 variant={fireButtonState}
-                color="primary"
+                sx={{border: "2px solid #bebebe", background: "#f0f0f0",}}
               >
                 🔥
               </Button>
               <Button
                 id="save"
                 variant="outlined"
-                color="primary"
+                sx={{border: "2px solid #bebebe", background: "#f0f0f0",}}
                 onClick={() => onSave(track.id)}
               >
                 💾

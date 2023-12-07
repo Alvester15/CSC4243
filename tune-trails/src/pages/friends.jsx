@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Databox from "../components/databox";
 import { useAppContext, actionTypes } from "../context/appContext";
+import { useAuth } from "../context/authContext";
 import { Tooltip, Button } from "@mui/material";
 import { Box } from "@mui/material";
+import CreatePost from "../components/createPost"
 
-const tracks = [
+const data = [
   {
     name: "Better Days",
     artists: [{ name: "NEIKED" }, { name: "Mae Muller" }, { name: "Polo G" }],
@@ -35,6 +37,8 @@ const FriendPage = () => {
   const { state, dispatch } = useAppContext();
   const { openPlaylist } = state;
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tracks, setTracks] = useState(data);
+  const { user } = useAuth();
 
   const saveToPlaylist = async (playlist, track) => {
     try {
@@ -60,7 +64,20 @@ const FriendPage = () => {
       // Handle the error as needed
     }
   };
-  
+
+  const addNewPost = (postData) => {
+    console.log(postData);
+    const formattedData = {
+      name: postData.songName,
+      artists: [{ name: postData.artistName }],
+      caption: postData.caption,
+      postedBy: user?.display_name,
+      id: postData.songId,
+      album: { images: [{ url: postData.imageUrl }] },
+    }
+    setTracks([formattedData, ...tracks]);
+  };
+
 
   return (
     <Box sx={{
@@ -80,6 +97,9 @@ const FriendPage = () => {
         // place the tooltip to the right of the icon
         placement="bottom-start"
       ></Tooltip>
+      <Box sx={{position: 'relative', left: '-6vh', top: 0, my: 2, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <CreatePost onAddPost={addNewPost} />
+      </Box>
       {tracks.map((track, index) => (
         <Databox
           key={index}
