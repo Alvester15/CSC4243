@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAppContext, setCurrentTrack } from "../context/appContext";
-import { Box } from "@mui/material";
+import { Box } from "@mui/system";
 
 const Databox = ({ track, caption, postedBy, onSave }) => {
   const [fireButtonState, setFireButtonState] = useState("outlined");

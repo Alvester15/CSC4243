@@ -13,11 +13,11 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { Box } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RemoveIcon from "@mui/icons-material/Remove";
 import friendsJson from "../data/friends.json";
 import Slide from "@mui/material/Slide";
+import { Box } from "@mui/material";
 
 function FriendsTab() {
   const [friends, setFriends] = useState([]);
@@ -120,7 +120,7 @@ function FriendsTab() {
         <FriendSearch />
       </Box>
       <Box
-        sx={{ top: "5vh", height: "64vh", width: "100%", overflowY: "scroll" }}
+        sx={{ top: "5vh", height: "63.05vh", width: "100%", overflowY: "scroll" }}
       >
         {friends.map((friend) => (
           <UserBox
@@ -139,7 +139,7 @@ function FriendsTab() {
           alignItems: "center",
           top: "auto",
           width: "100%",
-          borderTop: 1,
+          borderTop: 2,
           borderBottom: 1,
           borderColor: "#bebebe",
         }}

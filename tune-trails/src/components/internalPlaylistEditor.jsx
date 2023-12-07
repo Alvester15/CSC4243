@@ -4,8 +4,10 @@ import { useModifyPlaylist } from "../data/modifyPlaylists";
 import CloseButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { usePlaylistsData } from "../data/playlistsData";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Stack, Typography, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { useDrop } from "react-dnd";
+
 
 const InternalPlaylistEditor = (props) => {
   const { state, dispatch } = useAppContext();

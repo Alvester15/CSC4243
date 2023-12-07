@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Typography, Box, Button, IconButton, Input } from "@mui/material";
+import { Typography, Button, IconButton, Input } from "@mui/material";
 import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
@@ -8,6 +8,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import { Box } from "@mui/material";
 import InternalPlaylistEditor from "./internalPlaylistEditor";
 import { usePlaylistsData } from "../data/playlistsData";
 import { useModifyPlaylist } from "../data/modifyPlaylists";

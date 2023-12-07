@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Databox from "../components/databox";
 import { useAppContext, actionTypes } from "../context/appContext";
-import { Tooltip, Button, Box } from "@mui/material";
+import { Tooltip, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 const tracks = [
   {

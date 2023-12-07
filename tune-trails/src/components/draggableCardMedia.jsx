@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardMedia } from '@mui/material';
-import { useDrag, DragPreviewImage } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 
 const DraggableCardMedia = ({ track, onDoubleClick, size }) => {
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
