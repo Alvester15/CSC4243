@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Typography, Box, Button, IconButton, Input } from "@mui/material";
+import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import PlaylistAddSharpIcon from "@mui/icons-material/PlaylistAddSharp";
@@ -14,15 +15,19 @@ import PlaylistMoreMenu from "./playlistMoreMenu";
 
 export default function PlaylistBox() {
   const [isClicked, setClick] = useState(false);
-  const [buttons, setButtons] = useState([]);
   const [playListNameEdit, setPlayListNameEdit] = useState(false);
   const [newPlaylistName, setPlaylistName] = useState("New Playlist");
   const [playlistEditor, setPlaylistEditor] = useState(false);
   const [selectButton, setSelectButton] = useState([]);
   const { playlists } = usePlaylistsData();
+  const [playlistButtons, setPlaylistButtons] = useState([]);
   const { createPlaylist } = useModifyPlaylist();
-  const [moreMenuAnchor, setMoreMenuAnchor] = useState(null);
+  const [moreMenuAnchors, setMoreMenuAnchors] = useState({});
   const [playlistId, setplaylistId] = useState("");
+
+  useEffect(() => {
+    setPlaylistButtons(playlists);
+  }, [playlists]);
 
   const handleClick = () => {
     if (isClicked) {
@@ -48,7 +53,7 @@ export default function PlaylistBox() {
       setSelectButton(buttonName);
       setPlayListNameEdit(false);
       setPlaylistEditor(true);
-      setplaylistId(playlists.find((playlist) => playlist.id === index));
+      setplaylistId(playlistButtons.find((playlist) => playlist.id === index));
     } else {
       setPlayListNameEdit(false);
       setPlaylistName("New PlayList");
@@ -87,34 +92,50 @@ export default function PlaylistBox() {
     try {
       // Call the createPlaylist function with the newPlaylistName
       const newPlaylist = await createPlaylist(newPlaylistName);
-
-      // Update the state with the newly created playlist
-      setButtons((prevButtons) => [
-        ...prevButtons,
-        <Button
-          key={newPlaylist.id} // Use a unique key for each playlist
-          sx={{ textAlign: "center", width: "100%", color: "black" }}
-          onClick={(event) =>
-            internalPlaylist(event, newPlaylist.id, newPlaylist.name)
-          }
-        >
-          {newPlaylist.name}
-        </Button>,
-      ]);
-
+      setPlaylistButtons((prevButtons) => [newPlaylist, ...prevButtons]);
       setPlayListNameEdit(false);
+
     } catch (error) {
       console.error("Error creating a playlist:", error);
       // Handle the error as needed
     }
   };
 
-  const openMoreMenu = (event) => {
-    setMoreMenuAnchor(event.currentTarget);
+  const openMoreMenu = (event, playlistId) => {
+    setMoreMenuAnchors((prevAnchors) => ({
+      ...prevAnchors,
+      [playlistId]: event.currentTarget,
+    }));
   };
 
-  const closeMoreMenu = () => {
-    setMoreMenuAnchor(null);
+  const closeMoreMenu = (playlistId) => {
+    setMoreMenuAnchors((prevAnchors) => ({
+      ...prevAnchors,
+      [playlistId]: null,
+    }));
+  };
+
+  const handleMenuAction = async (action, playlistId) => {
+    if (action === 'delete') {
+      // Perform the delete action, update the state, or call the necessary API
+      try {
+        // Call the deletePlaylist function with the playlistId
+        // Update the state or perform any necessary actions
+        // For example:
+        // await deletePlaylist(playlistId);
+        setPlaylistButtons((prevButtons) => prevButtons.filter((playlist) => playlist.id !== playlistId));
+      } catch (error) {
+        console.error("Error deleting playlist:", error);
+        // Handle the error as needed
+      }
+    }  else if (action === 'edit') {
+      const playlist = playlistButtons.find((playlist) => playlist.id === playlistId);
+      internalPlaylist(event, playlistId, playlist.name);
+    } else {
+      // Handle other actions
+      console.log(`Performing ${action} on playlist: ${playlistId}`);
+    }
+    closeMoreMenu(playlistId);
   };
 
   return (
@@ -176,51 +197,64 @@ export default function PlaylistBox() {
             </Button>
             {playListNameEdit ? playlistNamerWrite() : playlistNamerRead()}
             {/* add buttons dynamically */}
-            {playlists.map((playlist) => (
-              <Button
+            <List>
+            {playlistButtons.map((playlist) => (
+              <ListItem
                 key={playlist.id}
                 sx={{
                   width: "100%",
                   background: "#f0f0f0",
                   borderRadius: "0px 0px 0px 0px",
                   borderTop: "1px solid #bebebe",
-                  boxShadow: "5px 5px 10px #bebebe, -5px -5px 10px #ffffff",
+                  boxShadow: "2px 2px 4px 2px #bebebe, -2px -2px 4px 2px #ffffff",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                   color: "black",
+                  padding: "0", // Adjust padding as needed
                 }}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    onClick={(event) => {
+                      event.stopPropagation(); // Prevent propagation
+                      openMoreMenu(event, playlist.id);
+                    }}
+                    onDoubleClick={(event) => event.stopPropagation()}
+                    onMouseDown={(event) => event.stopPropagation()}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                }
                 onDoubleClick={(event) =>
                   internalPlaylist(event, playlist.id, playlist.name)
                 }
               >
+                <ListItemButton>
                 {playlist.images && playlist.images.length > 0 && (
-                  <img
-                    src={playlist.images[0].url}
-                    alt={playlist.name}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      marginRight: "10px",
-                    }}
-                  />
+                  <ListItemAvatar>
+                    <img
+                      src={playlist.images[0].url}
+                      alt={playlist.name}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                      }}
+                    />
+                  </ListItemAvatar>
                 )}
-                {playlist.name}
-                <IconButton
-                  onClick={(event) => {
-                    event.stopPropagation(); // Prevent propagation
-                    openMoreMenu(event);
-                  }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-
+                <ListItemText primary={playlist.name} />
+                </ListItemButton>
                 <PlaylistMoreMenu
-                  anchorEl={moreMenuAnchor}
-                  onClose={closeMoreMenu}
-                />
-              </Button>
+                anchorEl={moreMenuAnchors[playlist.id]}
+                onClose={() => closeMoreMenu(playlist.id)}
+                onMenuAction={(action) => handleMenuAction(action, playlist.id)}
+              />
+              </ListItem>
             ))}
+          </List>
           </>
         )}
       </Box>

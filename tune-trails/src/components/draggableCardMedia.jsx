@@ -21,9 +21,11 @@ const DraggableCardMedia = ({ track, onDoubleClick, size }) => {
         image={track.album.images[0].url}
         onDoubleClick={() => onDoubleClick(track)}
         ref={dragRef}
-        style={{
+        sx={{
           cursor: isDragging ? 'copy' : 'pointer',
           opacity: isDragging ? 0.5 : 1,
+          borderBottom: 2,
+          borderColor: "#bebebe",
         }}
       />
   );

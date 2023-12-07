@@ -48,7 +48,7 @@ function DiscoverScroller({ tracks }) {
         <Slide direction={slideDirection} in={slideIn} mountOnEnter unmountOnExit timeout={200}>
           <Box sx={{ display: 'flex', overflow: 'none' }}>
             {tracks.slice(startIndex, startIndex + 4).map((track, index) => (
-              <Card key={index} sx={{ width: 200, mx: 2, my: 1, height: '30vh', border: 3, borderColor: "#bebebe"}}>
+              <Card key={index} sx={{ width: 200, mx: 2, my: 1, height: '30vh', border: 3, borderColor: "#bebebe", background: "#f0f0f0"}}>
                   <DraggableCardMedia
                     track={track}
                     onDoubleClick={handleDoubleClick}

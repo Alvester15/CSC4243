@@ -10,12 +10,14 @@ const Discover = () => {
   const { user } = useAuth();
   const { fetchRecommendations } = useRecommendationsData();
   const [recommendations, setRecommendations] = useState([]);
+  const [moreRecommendations, setMoreRecommendations] = useState([]);
 
 
   const fetchData = async () => {
     const data = await fetchRecommendations();
     if (data) {
-      setRecommendations(data);
+      setRecommendations(data.recommendationsFromTracks);
+      setMoreRecommendations(data.recommendationsFromArtists);
     }
   }
 
@@ -49,8 +51,8 @@ const Discover = () => {
       </Box>
       <Typography variant="h6" color={"grey"} sx={{ position: "relative", left: "5vw", mt: 2 }}>{`Here are recommendations based on your music taste`}</Typography>
       <DiscoverScroller tracks={recommendations}/>
-      {/* <Typography variant="h6" color={"grey"} sx={{ position: "relative", left: "5vw", mt: 2 }}>{`We think you would like these artists:`}</Typography>
-      <DiscoverScroller /> */}
+      <Typography variant="h6" color={"grey"} sx={{ position: "relative", left: "5vw", mt: 2 }}>{`Here are recommendations based on your top artists`}</Typography>
+      <DiscoverScroller tracks={moreRecommendations}/>
     </Box>
   );
 };
