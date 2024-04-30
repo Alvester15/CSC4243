@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import { ContextProvider } from "./context/appContext";
+import { ContextProvider } from "./src/context/appContext";
 
 const rootElement = document.getElementById("root");
 const root = ReactDOMClient.createRoot(rootElement);

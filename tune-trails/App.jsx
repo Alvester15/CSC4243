@@ -1,15 +1,15 @@
 import "./App.css";
-import PlaylistBox from "./components/playlistBox";
-import Sidebar from "./components/sidebar";
-import FriendPage from "./pages/friends";
+import PlaylistBox from "./src/components/playlistBox";
+import Sidebar from "./src/components/sidebar";
+import FriendPage from "./src/pages/friends";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import Profile from "./pages/profile";
-import Discover from "./pages/discover";
-import News from "./pages/news";
-import MainNavbar from "./components/mainNavbar";
-import Callback from "./pages/callback";
-import { useAuth } from "./context/authContext";
-import LoginModal from "./components/loginModal";
+import Profile from "./src/pages/profile";
+import Discover from "./src/pages/discover";
+import News from "./src/pages/news";
+import MainNavbar from "./src/components/mainNavbar";
+import Callback from "./src/pages/callback";
+import { useAuth } from "./src/context/authContext";
+import LoginModal from "./src/components/loginModal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
@@ -25,20 +25,29 @@ function App() {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Box sx={{        
-      display: "flex",
-      alignItems: "center",
-      margin: "0",
-      width: "100%",
-      flexDirection: "row", 
-      overflow: "hidden",
-      backgroundColor: "#f0f0f0", // Neumorphic background color
-      }}>
-        {showLoginModal && <LoginModal open={true} onClose={() => { /* Handle close */ }} />}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          margin: "0",
+          width: "100%",
+          flexDirection: "row",
+          overflow: "hidden",
+          backgroundColor: "#f0f0f0", // Neumorphic background color
+        }}
+      >
+        {showLoginModal && (
+          <LoginModal
+            open={true}
+            onClose={() => {
+              /* Handle close */
+            }}
+          />
+        )}
         <Box sx={{ position: "absolute", left: 20, top: "5vh" }}>
           <PlaylistBox />
         </Box>
-          <MainNavbar />
+        <MainNavbar />
         <Box sx={{ position: "absolute", right: 20, top: "5vh" }}>
           <Sidebar />
         </Box>
