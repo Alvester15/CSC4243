@@ -1,15 +1,15 @@
 import "./App.css";
-import PlaylistBox from "./src/components/playlistBox";
-import Sidebar from "./src/components/sidebar";
-import FriendPage from "./src/pages/friends";
+import PlaylistBox from "../src/components/playlistBox";
+import Sidebar from "../src/components/sidebar";
+import FriendPage from "../src/pages/friends";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import Profile from "./src/pages/profile";
-import Discover from "./src/pages/discover";
-import News from "./src/pages/news";
-import MainNavbar from "./src/components/mainNavbar";
-import Callback from "./src/pages/callback";
-import { useAuth } from "./src/context/authContext";
-import LoginModal from "./src/components/loginModal";
+import Profile from "../src/pages/profile";
+import Discover from "../src/pages/discover";
+import News from "../src/pages/news";
+import MainNavbar from "../src/components/mainNavbar";
+import Callback from "../src/pages/callback";
+import { useAuth } from "../src/context/authContext";
+import LoginModal from "../src/components/loginModal";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
